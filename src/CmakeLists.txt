@@ -1,5 +1,3 @@
-option(COMPILE_EXAMPLE OFF)
-
 add_subdirectory("lib")
 
 if(COMPILE_EXAMPLE)

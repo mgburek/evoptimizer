@@ -13,4 +13,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(LIBRARY_NAME "evoptimzer")
 set(EXAMPLE_EXECUTABLE_NAME "lib_example")
 
+option(COMPILE_EXAMPLE OFF)
+
 add_subdirectory("src")
