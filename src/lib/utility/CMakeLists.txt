@@ -1,13 +1,11 @@
 set(
     HEADERS
-    random_generator.h
+    int_random_generator.h
+    real_random_generator.h
 )
 
-set(
-    SOURCES
-    random_generator.cpp
-)
 
-add_library(${UTILITY_LIB_NAME} STATIC ${HEADERS} ${SOURCES})
+add_library(${UTILITY_LIB_NAME} STATIC ${HEADERS})
+set_target_properties(${UTILITY_LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 target_include_directories(${UTILITY_LIB_NAME} PUBLIC "./")
