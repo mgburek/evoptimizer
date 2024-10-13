@@ -2,6 +2,7 @@ set(
     HEADERS
     individual.h
     gene.h
+    fitness_evaluator.h
 )
 
 add_library(${POPULATION_LIB_NAME} STATIC ${HEADERS})

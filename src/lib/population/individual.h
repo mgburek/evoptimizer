@@ -10,6 +10,8 @@
 template <unsigned int genes_num, typename GeneType>
 class Individual
 {
+    using Real = GeneType::RealType;
+
     std::array<GeneType, genes_num> _genes;
 
 public:
@@ -18,6 +20,14 @@ public:
     static Individual<genes_num, GeneType> createRandom();
 
     std::string toString() const;
+
+    /**
+     * Returns a Real value of a gene at index idx
+     */
+    constexpr Real operator[](int idx)
+    {
+        return _genes.at(idx).toReal();
+    }
 };
 
 // ============================================================

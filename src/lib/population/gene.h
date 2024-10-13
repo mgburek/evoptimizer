@@ -11,14 +11,16 @@ class Gene
     static_assert(std::is_floating_point_v<Real>,
                   "Real type must be a floating point type");
 
-    static constexpr Real MAX_REAL_VALUE =
-        static_cast<Real>(std::numeric_limits<Integral>::max());
+    static constexpr Real UINT_SCALER =
+        static_cast<Real>(1.0) / static_cast<Real>(std::numeric_limits<Integral>::max());
 
     static IntRandomGenerator<Integral> gen;
 
     Integral _value;
 
 public:
+    using RealType = Real;
+    
     Gene(Integral init_value = 0);
 
     static Gene<Integral, Real, min, max> createRandom();
@@ -53,7 +55,7 @@ Gene<Integral, Real, min, max> Gene<Integral, Real, min, max>::createRandom()
 template <typename Integral, typename Real, Real min, Real max>
 Real Gene<Integral, Real, min, max>::toReal() const
 {
-    return min + (static_cast<Real>(_value) / MAX_REAL_VALUE) * (max - min);
+    return min + (static_cast<Real>(_value) * UINT_SCALER) * (max - min);
 }
 
 /**
