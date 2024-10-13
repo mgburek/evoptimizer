@@ -1,6 +1,7 @@
 set(
     HEADERS
     individual.h
+    gene.h
 )
 
 add_library(${POPULATION_LIB_NAME} STATIC ${HEADERS})
