@@ -1,5 +1,7 @@
-#pragma once
+#ifndef EVOPTIMIZER_POPULATION_INDIVIDUAL_H_
+#define EVOPTIMIZER_POPULATION_INDIVIDUAL_H_
 
+#include <cstddef>
 #include <array>
 #include <string>
 #include <sstream>
@@ -7,24 +9,28 @@
 
 #include <int_random_generator.h>
 
-template <unsigned int genes_num, typename GeneType>
+template <size_t genes_num, typename GeneType>
 class Individual
 {
-    using Real = GeneType::RealType;
-
     std::array<GeneType, genes_num> _genes;
 
 public:
-    Individual(const std::array<GeneType, genes_num> &genes);
+    using RealType = GeneType::RealType;
+
+    Individual(const std::array<GeneType, genes_num> &genes)
+        : _genes(genes) {}
+
+    Individual()
+        : _genes() {}
 
     static Individual<genes_num, GeneType> createRandom();
 
     std::string toString() const;
 
     /**
-     * Returns a Real value of a gene at index idx
+     * Returns a RealType value of a gene at index idx
      */
-    constexpr Real operator[](int idx)
+    constexpr RealType operator[](int idx)
     {
         return _genes.at(idx).toReal();
     }
@@ -32,16 +38,10 @@ public:
 
 // ============================================================
 
-template <unsigned int genes_num, typename GeneType>
-Individual<genes_num, GeneType>::Individual(const std::array<GeneType, genes_num> &genes)
-    : _genes(genes)
-{
-}
-
 /**
  * Creates an individual with random genes
  */
-template <unsigned int genes_num, typename GeneType>
+template <size_t genes_num, typename GeneType>
 Individual<genes_num, GeneType> Individual<genes_num, GeneType>::createRandom()
 {
     std::array<GeneType, genes_num> genes;
@@ -53,7 +53,7 @@ Individual<genes_num, GeneType> Individual<genes_num, GeneType>::createRandom()
 /**
  * Converts an indivdual to space separated std::string
  */
-template <unsigned int genes_num, typename GeneType>
+template <size_t genes_num, typename GeneType>
 std::string Individual<genes_num, GeneType>::toString() const
 {
     std::ostringstream str_stream;
@@ -62,3 +62,5 @@ std::string Individual<genes_num, GeneType>::toString() const
 
     return str_stream.str();
 }
+
+#endif
