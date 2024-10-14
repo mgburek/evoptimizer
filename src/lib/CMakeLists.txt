@@ -1,6 +1,7 @@
 set(
     HEADERS
     optimizer.h
+    rank_selector.h
 )
 
 set(
@@ -27,4 +28,5 @@ target_link_libraries(
     ${LIBRARY_NAME} 
     PUBLIC 
     ${POPULATION_LIB_NAME}
+    ${UTILITY_LIB_NAME}
 )

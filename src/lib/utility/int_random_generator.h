@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EVOPTIMIZER_INT_RANDOM_GENERATOR_H_
+#define EVOPTIMIZER_INT_RANDOM_GENERATOR_H_
 
 #include <random>
 
@@ -28,3 +29,5 @@ double IntRandomGenerator<Real>::operator()()
 {
     return _distribution(_engine);
 }
+
+#endif

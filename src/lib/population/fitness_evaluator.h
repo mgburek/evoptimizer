@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EVOPTIMIZER_POPULATION_FITNESS_EVALUATOR_H_
+#define EVOPTIMIZER_POPULATION_FITNESS_EVALUATOR_H_
 
 #include <functional>
 
@@ -39,3 +40,5 @@ public:
         return fitness;
     }
 };
+
+#endif
