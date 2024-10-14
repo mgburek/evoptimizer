@@ -31,7 +31,7 @@ public:
     /**
      * Returns a RealType value of a gene at index idx
      */
-    constexpr Real operator[](int idx)
+    constexpr Real operator[](int idx) const
     {
         return _genes.at(idx).toReal();
     }

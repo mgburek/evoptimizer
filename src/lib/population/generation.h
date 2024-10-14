@@ -24,12 +24,19 @@ public:
     /**
      * Returns an Individual at index idx
      */
-    constexpr IndividualType operator[](int idx)
+    constexpr IndividualType operator[](int idx) const
     {
         return _population.at(idx);
     }
-};
 
+    using iterator = std::array<IndividualType, population_size>::iterator;
+    using const_iterator = std::array<IndividualType, population_size>::const_iterator;
+
+    iterator begin() { return _population.begin(); }
+    // const_iterator cbegin() { return _population.cbegin(); }
+    iterator end() { return _population.end(); }
+    // const_iterator cend() { return _population.cend(); }
+};
 
 // ============================================================
 
@@ -39,10 +46,10 @@ public:
 template <typename Integral, typename Real, size_t genes_num, size_t population_size>
 Generation<Integral, Real, genes_num, population_size> Generation<Integral, Real, genes_num, population_size>::createRandom()
 {
-    std::array<IndividualType, population_size> population;
+    Generation<Integral, Real, genes_num, population_size> population;
     std::generate(population.begin(), population.end(), []()
                   { return IndividualType::createRandom(); });
-    return Generation<Integral, Real, genes_num, population_size>(std::move(population));
+    return std::move(population);
 }
 
 /**
