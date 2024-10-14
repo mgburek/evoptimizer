@@ -23,8 +23,6 @@ public:
     inline static Real min = static_cast<Real>(-1.0);
     inline static Real max = static_cast<Real>(1.0);
 
-    using RealType = Real;
-
     Gene(Integral init_value = 0) : _value{init_value}
     {
     }

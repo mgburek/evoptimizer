@@ -9,28 +9,29 @@
 
 #include <int_random_generator.h>
 
-template <size_t genes_num, typename GeneType>
+#include "gene.h"
+
+template <typename Integral, typename Real, size_t genes_num>
 class Individual
 {
+    using GeneType = Gene<Integral, Real>;
     std::array<GeneType, genes_num> _genes;
 
 public:
-    using RealType = GeneType::RealType;
-
     Individual(const std::array<GeneType, genes_num> &genes)
         : _genes(genes) {}
 
     Individual()
         : _genes() {}
 
-    static Individual<genes_num, GeneType> createRandom();
+    static Individual<Integral, Real, genes_num> createRandom();
 
     std::string toString() const;
 
     /**
      * Returns a RealType value of a gene at index idx
      */
-    constexpr RealType operator[](int idx)
+    constexpr Real operator[](int idx)
     {
         return _genes.at(idx).toReal();
     }
@@ -41,20 +42,20 @@ public:
 /**
  * Creates an individual with random genes
  */
-template <size_t genes_num, typename GeneType>
-Individual<genes_num, GeneType> Individual<genes_num, GeneType>::createRandom()
+template <typename Integral, typename Real, size_t genes_num>
+Individual<Integral, Real, genes_num> Individual<Integral, Real, genes_num>::createRandom()
 {
     std::array<GeneType, genes_num> genes;
     std::generate(genes.begin(), genes.end(), []()
                   { return GeneType::createRandom(); });
-    return Individual<genes_num, GeneType>(std::move(genes));
+    return Individual<Integral, Real, genes_num>(std::move(genes));
 }
 
 /**
  * Converts an indivdual to space separated std::string
  */
-template <size_t genes_num, typename GeneType>
-std::string Individual<genes_num, GeneType>::toString() const
+template <typename Integral, typename Real, size_t genes_num>
+std::string Individual<Integral, Real, genes_num>::toString() const
 {
     std::ostringstream str_stream;
     for (const GeneType &gene : _genes)

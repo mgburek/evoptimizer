@@ -1,7 +1,8 @@
 set(
     HEADERS
-    individual.h
     gene.h
+    individual.h
+    generation.h
     fitness_evaluator.h
 )
 
