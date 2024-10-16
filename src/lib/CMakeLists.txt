@@ -2,6 +2,7 @@ set(
     HEADERS
     optimizer.h
     rank_selector.h
+    single_point_cross_breeder.h
 )
 
 set(

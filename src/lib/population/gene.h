@@ -15,7 +15,7 @@ class Gene
     static constexpr Real UINT_SCALER =
         static_cast<Real>(1.0) / static_cast<Real>(std::numeric_limits<Integral>::max());
 
-    static IntRandomGenerator<Integral> gen;
+    static IntRandomGenerator<Integral> _gen;
 
     Integral _value;
 
@@ -32,13 +32,23 @@ public:
      */
     static Gene<Integral, Real> createRandom()
     {
-        return Gene<Integral, Real>(gen());
+        return Gene<Integral, Real>(_gen());
+    }
+
+    Integral get() const
+    {
+        return _value;
+    }
+
+    void set(Integral new_value)
+    {
+        _value = new_value;
     }
 
     /**
      * Converts gene's encoded value to real (floating point type) number
      */
-    Real toReal() const
+    Real getReal() const
     {
         return min + (static_cast<Real>(_value) * UINT_SCALER) * (max - min);
     }
@@ -48,7 +58,7 @@ public:
      */
     std::string toString() const
     {
-        return std::to_string(toReal());
+        return std::to_string(getReal());
     }
 
     /**
@@ -64,6 +74,6 @@ public:
 // ============================================================
 
 template <typename Integral, typename Real>
-IntRandomGenerator<Integral> Gene<Integral, Real>::gen(0, std::numeric_limits<Integral>::max());
+IntRandomGenerator<Integral> Gene<Integral, Real>::_gen(0, std::numeric_limits<Integral>::max());
 
 #endif

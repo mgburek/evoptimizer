@@ -17,25 +17,22 @@ public:
     Generation()
         : _population() {}
 
+    Generation(const Generation<Integral, Real, genes_num, population_size> &other)
+        : _population(other._population) {}
+
     static Generation<Integral, Real, genes_num, population_size> createRandom();
 
     std::string toString() const;
 
-    /**
-     * Returns an Individual at index idx
-     */
-    constexpr IndividualType operator[](int idx) const
+    std::array<IndividualType, population_size> &mutablePopulation()
     {
-        return _population.at(idx);
+        return _population;
     }
 
-    using iterator = std::array<IndividualType, population_size>::iterator;
-    using const_iterator = std::array<IndividualType, population_size>::const_iterator;
-
-    iterator begin() { return _population.begin(); }
-    // const_iterator cbegin() { return _population.cbegin(); }
-    iterator end() { return _population.end(); }
-    // const_iterator cend() { return _population.cend(); }
+    const std::array<IndividualType, population_size> &population() const
+    {
+        return _population;
+    }
 };
 
 // ============================================================
@@ -46,10 +43,10 @@ public:
 template <typename Integral, typename Real, size_t genes_num, size_t population_size>
 Generation<Integral, Real, genes_num, population_size> Generation<Integral, Real, genes_num, population_size>::createRandom()
 {
-    Generation<Integral, Real, genes_num, population_size> population;
-    std::generate(population.begin(), population.end(), []()
+    Generation<Integral, Real, genes_num, population_size> generation;
+    std::generate(generation.mutablePopulation().begin(), generation.mutablePopulation().end(), []()
                   { return IndividualType::createRandom(); });
-    return std::move(population);
+    return std::move(generation);
 }
 
 /**

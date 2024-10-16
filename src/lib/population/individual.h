@@ -28,12 +28,22 @@ public:
 
     std::string toString() const;
 
-    /**
-     * Returns a RealType value of a gene at index idx
-     */
-    constexpr Real operator[](int idx) const
+    std::array<GeneType, genes_num> &mutableGenes()
     {
-        return _genes.at(idx).toReal();
+        return _genes;
+    }
+
+    const std::array<GeneType, genes_num> &genes() const
+    {
+        return _genes;
+    }
+
+    const std::array<Real, genes_num> realGenes() const
+    {
+        std::array<Real, genes_num> real_values;
+        for (size_t i = 0; i < genes_num; i++)
+            real_values[i] = _genes[i].getReal();
+        return real_values;
     }
 };
 
