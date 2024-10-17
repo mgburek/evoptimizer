@@ -3,6 +3,7 @@ set(
     optimizer.h
     rank_selector.h
     single_point_cross_breeder.h
+    single_bit_mutator.h
 )
 
 set(

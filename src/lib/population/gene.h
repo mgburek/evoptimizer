@@ -15,24 +15,22 @@ class Gene
     static constexpr Real UINT_SCALER =
         static_cast<Real>(1.0) / static_cast<Real>(std::numeric_limits<Integral>::max());
 
-    static IntRandomGenerator<Integral> _gen;
-
     Integral _value;
 
 public:
+    static IntRandomGenerator<Integral> gen;
+
     inline static Real min = static_cast<Real>(-1.0);
     inline static Real max = static_cast<Real>(1.0);
 
-    Gene(Integral init_value = 0) : _value{init_value}
-    {
-    }
+    Gene(Integral init_value = 0) : _value{init_value} {}
 
     /**
      * Creates a random gene
      */
     static Gene<Integral, Real> createRandom()
     {
-        return Gene<Integral, Real>(_gen());
+        return Gene<Integral, Real>(gen());
     }
 
     Integral get() const
@@ -43,6 +41,11 @@ public:
     void set(Integral new_value)
     {
         _value = new_value;
+    }
+
+    static constexpr size_t bitsNum()
+    {
+        return sizeof(Integral) * 8;
     }
 
     /**
@@ -66,7 +69,7 @@ public:
      */
     std::string toBinaryString() const
     {
-        std::bitset<sizeof(Integral) * 8> binary(_value);
+        std::bitset<bitsNum()> binary(_value);
         return binary.to_string();
     }
 };
@@ -74,6 +77,6 @@ public:
 // ============================================================
 
 template <typename Integral, typename Real>
-IntRandomGenerator<Integral> Gene<Integral, Real>::_gen(0, std::numeric_limits<Integral>::max());
+IntRandomGenerator<Integral> Gene<Integral, Real>::gen(0, std::numeric_limits<Integral>::max());
 
 #endif

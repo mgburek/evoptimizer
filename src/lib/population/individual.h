@@ -45,6 +45,11 @@ public:
             real_values[i] = _genes[i].getReal();
         return real_values;
     }
+
+    static constexpr size_t bitsNum()
+    {
+        return sizeof(Integral) * 8 * genes_num;
+    }
 };
 
 // ============================================================

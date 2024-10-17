@@ -69,6 +69,7 @@ public:
 
 template <typename Integral, typename Real, size_t genes_num, size_t population_size>
 IntRandomGenerator<size_t>
-    SinglePointCrossBreeder<Integral, Real, genes_num, population_size>::cross_point_gen(1, sizeof(Integral) * 8 * genes_num - 1);
+    SinglePointCrossBreeder<Integral, Real, genes_num, population_size>::
+        cross_point_gen(1, Individual<Integral, Real, genes_num>::bitsNum() - 1);
 
 #endif
