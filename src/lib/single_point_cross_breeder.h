@@ -5,8 +5,7 @@
 #include <algorithm>
 #include <numeric>
 
-#include <int_random_generator.h>
-#include <random_generators.h>
+#include <generators.h>
 
 template <typename Integral, typename Real, size_t genes_num, size_t population_size>
 class SinglePointCrossBreeder
@@ -14,7 +13,7 @@ class SinglePointCrossBreeder
     using GenerationType = Generation<Integral, Real, genes_num, population_size>;
     using IndividualType = Individual<Integral, Real, genes_num>;
 
-    static IntRandomGenerator<size_t> cross_point_gen;
+    static Random::IntGenerator<size_t> cross_point_gen;
 
     const double _crossing_chance;
 
@@ -36,7 +35,7 @@ public:
 
         for (size_t i = 0; i < new_generation.population().size(); i += 2)
         {
-            if (RandomGenerators::zero_one() < _crossing_chance)
+            if (Random::zero_one() < _crossing_chance)
             {
                 size_t cross_point = cross_point_gen();
 
@@ -68,7 +67,7 @@ public:
 // ============================================================
 
 template <typename Integral, typename Real, size_t genes_num, size_t population_size>
-IntRandomGenerator<size_t>
+Random::IntGenerator<size_t>
     SinglePointCrossBreeder<Integral, Real, genes_num, population_size>::
         cross_point_gen(1, Individual<Integral, Real, genes_num>::bitsNum() - 1);
 

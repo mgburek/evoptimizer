@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <numeric>
 
-#include <random_generators.h>
+#include <generators.h>
 
 template <typename Integral, typename Real, size_t genes_num, size_t population_size>
 class RankSelector
@@ -38,7 +38,7 @@ public:
 
         auto new_generation_generator = [&]()
         {
-            double selection = RandomGenerators::zero_one();
+            double selection = Random::zero_one();
             auto it = std::lower_bound(odds.begin(), odds.end(), selection);
             int index = indices[std::distance(odds.begin(), it)];
             return generation.population().at(index);

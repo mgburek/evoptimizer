@@ -4,6 +4,8 @@
 #include <limits>
 #include <bitset>
 
+#include <generators.h>
+
 template <typename Integral, typename Real>
 class Gene
 {
@@ -18,10 +20,10 @@ class Gene
     Integral _value;
 
 public:
-    static IntRandomGenerator<Integral> gen;
+    static Random::IntGenerator<Integral> gen;
 
-    inline static Real min = static_cast<Real>(-1.0);
-    inline static Real max = static_cast<Real>(1.0);
+    static constexpr Real min = static_cast<Real>(-1.0);
+    static constexpr Real max = static_cast<Real>(1.0);
 
     Gene(Integral init_value = 0) : _value{init_value} {}
 
@@ -77,6 +79,6 @@ public:
 // ============================================================
 
 template <typename Integral, typename Real>
-IntRandomGenerator<Integral> Gene<Integral, Real>::gen(0, std::numeric_limits<Integral>::max());
+Random::IntGenerator<Integral> Gene<Integral, Real>::gen(0, std::numeric_limits<Integral>::max());
 
 #endif

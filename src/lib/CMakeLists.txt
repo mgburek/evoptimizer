@@ -14,7 +14,7 @@ set(
 set(POPULATION_LIB_NAME population_lib)
 set(UTILITY_LIB_NAME utility_lib)
 
-add_subdirectory("utility")
+add_subdirectory("random")
 add_subdirectory("population")
 
 add_library(${LIBRARY_NAME} STATIC ${HEADERS} ${SOURCES})

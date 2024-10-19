@@ -7,8 +7,6 @@
 #include <sstream>
 #include <algorithm>
 
-#include <int_random_generator.h>
-
 #include "gene.h"
 
 template <typename Integral, typename Real, size_t genes_num>

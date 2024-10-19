@@ -3,9 +3,11 @@
 
 #include <algorithm>
 
-#include <int_random_generator.h>
-#include <random_generators.h>
+#include <generators.h>
 
+/**
+ * Mutates at most one bit of each individual according to mutation chance
+ */
 template <typename Integral, typename Real, size_t genes_num, size_t population_size>
 class SingleBitMutator
 {
@@ -13,7 +15,7 @@ class SingleBitMutator
     using IndividualType = Individual<Integral, Real, genes_num>;
     using GeneType = Gene<Integral, Real>;
 
-    static IntRandomGenerator<size_t> mutation_point_gen;
+    static Random::IntGenerator<size_t> mutation_point_gen;
 
     const double _mutation_chance;
 
@@ -28,7 +30,7 @@ public:
 
         auto mutate = [this](IndividualType &individual)
         {
-            if (RandomGenerators::zero_one() < _mutation_chance)
+            if (Random::zero_one() < _mutation_chance)
             {
                 auto &genes = individual.mutableGenes();
                 size_t mutation_point = mutation_point_gen();
@@ -41,7 +43,7 @@ public:
         };
 
         std::for_each(new_population.begin(), new_population.end(), mutate);
-        
+
         return new_generation;
     }
 };
@@ -49,7 +51,7 @@ public:
 // ============================================================
 
 template <typename Integral, typename Real, size_t genes_num, size_t population_size>
-IntRandomGenerator<size_t>
+Random::IntGenerator<size_t>
     SingleBitMutator<Integral, Real, genes_num, population_size>::
         mutation_point_gen(1, Individual<Integral, Real, genes_num>::bitsNum() - 1);
 

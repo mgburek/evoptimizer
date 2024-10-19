@@ -1,8 +1,7 @@
 set(
     HEADERS
-    int_random_generator.h
-    real_random_generator.h
-    random_generators.h
+    global_engine.h
+    generators.h
 )
 
 
