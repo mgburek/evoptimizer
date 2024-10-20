@@ -8,12 +8,12 @@
 /**
  * Mutates at most one bit of each individual according to mutation chance
  */
-template <typename Integral, typename Real, size_t genes_num, size_t population_size>
+template <typename I, typename R, size_t genes_num, size_t population_size>
 class SingleBitMutator
 {
-    using GenerationType = Generation<Integral, Real, genes_num, population_size>;
-    using IndividualType = Individual<Integral, Real, genes_num>;
-    using GeneType = Gene<Integral, Real>;
+    using GenerationType = Generation<I, R, genes_num, population_size>;
+    using IndividualType = Individual<I, R, genes_num>;
+    using GeneType = Gene<I, R>;
 
     static Random::IntGenerator<size_t> mutation_point_gen;
 
@@ -50,9 +50,9 @@ public:
 
 // ============================================================
 
-template <typename Integral, typename Real, size_t genes_num, size_t population_size>
+template <typename I, typename R, size_t genes_num, size_t population_size>
 Random::IntGenerator<size_t>
-    SingleBitMutator<Integral, Real, genes_num, population_size>::
-        mutation_point_gen(1, Individual<Integral, Real, genes_num>::bitsNum() - 1);
+    SingleBitMutator<I, R, genes_num, population_size>::
+        mutation_point_gen(1, Individual<I, R, genes_num>::bitsNum() - 1);
 
 #endif

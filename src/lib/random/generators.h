@@ -5,16 +5,19 @@
 
 namespace Random
 {
-    template <typename Integral>
+    /**
+     * Generates whole numbers in range min (inclusive) and max (inclusive)
+     */
+    template <typename I>
     class IntGenerator
     {
-        static_assert(std::is_integral_v<Integral>,
-                      "Integral type must be an integral type");
+        static_assert(std::is_integral_v<I>,
+                      "I type must be an integral type");
 
-        std::uniform_int_distribution<Integral> _distribution;
+        std::uniform_int_distribution<I> _distribution;
 
     public:
-        IntGenerator(Integral min, Integral max)
+        IntGenerator(I min, I max)
             : _distribution(min, max) {}
 
         double operator()()
@@ -23,16 +26,19 @@ namespace Random
         }
     };
 
-    template <typename Real>
+    /**
+     * Generates real numbers in range min (inclusive) and max (exculsive)
+     */
+    template <typename R>
     class RealGenerator
     {
-        static_assert(std::is_floating_point_v<Real>,
-                      "Real type must be a floating point type");
+        static_assert(std::is_floating_point_v<R>,
+                      "R type must be a floating point type");
 
-        std::uniform_real_distribution<Real> _distribution;
+        std::uniform_real_distribution<R> _distribution;
 
     public:
-        RealGenerator(Real min, Real max)
+        RealGenerator(R min, R max)
             : _distribution(min, max) {}
 
         double operator()()

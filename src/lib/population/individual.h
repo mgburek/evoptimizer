@@ -9,10 +9,10 @@
 
 #include "gene.h"
 
-template <typename Integral, typename Real, size_t genes_num>
+template <typename I, typename R, size_t genes_num>
 class Individual
 {
-    using GeneType = Gene<Integral, Real>;
+    using GeneType = Gene<I, R>;
     std::array<GeneType, genes_num> _genes;
 
 public:
@@ -22,7 +22,7 @@ public:
     Individual()
         : _genes() {}
 
-    static Individual<Integral, Real, genes_num> createRandom();
+    static Individual<I, R, genes_num> createRandom();
 
     std::string toString() const;
 
@@ -36,9 +36,9 @@ public:
         return _genes;
     }
 
-    const std::array<Real, genes_num> realGenes() const
+    const std::array<R, genes_num> realGenes() const
     {
-        std::array<Real, genes_num> real_values;
+        std::array<R, genes_num> real_values;
         for (size_t i = 0; i < genes_num; i++)
             real_values[i] = _genes[i].getReal();
         return real_values;
@@ -46,7 +46,7 @@ public:
 
     static constexpr size_t bitsNum()
     {
-        return sizeof(Integral) * 8 * genes_num;
+        return sizeof(I) * 8 * genes_num;
     }
 };
 
@@ -55,20 +55,20 @@ public:
 /**
  * Creates an individual with random genes
  */
-template <typename Integral, typename Real, size_t genes_num>
-Individual<Integral, Real, genes_num> Individual<Integral, Real, genes_num>::createRandom()
+template <typename I, typename R, size_t genes_num>
+Individual<I, R, genes_num> Individual<I, R, genes_num>::createRandom()
 {
     std::array<GeneType, genes_num> genes;
     std::generate(genes.begin(), genes.end(), []()
                   { return GeneType::createRandom(); });
-    return Individual<Integral, Real, genes_num>(std::move(genes));
+    return Individual<I, R, genes_num>(std::move(genes));
 }
 
 /**
  * Converts an indivdual to space separated std::string
  */
-template <typename Integral, typename Real, size_t genes_num>
-std::string Individual<Integral, Real, genes_num>::toString() const
+template <typename I, typename R, size_t genes_num>
+std::string Individual<I, R, genes_num>::toString() const
 {
     std::ostringstream str_stream;
     for (const GeneType &gene : _genes)

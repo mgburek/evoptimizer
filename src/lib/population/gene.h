@@ -6,56 +6,56 @@
 
 #include <generators.h>
 
-template <typename Integral, typename Real>
+template <typename I, typename R>
 class Gene
 {
-    static_assert(std::is_integral_v<Integral> && std::is_unsigned_v<Integral>,
-                  "Integral must be an unsigned integral type");
-    static_assert(std::is_floating_point_v<Real>,
-                  "Real type must be a floating point type");
+    static_assert(std::is_integral_v<I> && std::is_unsigned_v<I>,
+                  "I must be an unsigned integral type");
+    static_assert(std::is_floating_point_v<R>,
+                  "R type must be a floating point type");
 
-    static constexpr Real UINT_SCALER =
-        static_cast<Real>(1.0) / static_cast<Real>(std::numeric_limits<Integral>::max());
+    static constexpr R UINT_SCALER =
+        static_cast<R>(1.0) / static_cast<R>(std::numeric_limits<I>::max());
 
-    Integral _value;
+    I _value;
 
 public:
-    static Random::IntGenerator<Integral> gen;
+    static Random::IntGenerator<I> gen;
 
-    static constexpr Real min = static_cast<Real>(-1.0);
-    static constexpr Real max = static_cast<Real>(1.0);
+    static constexpr R min = static_cast<R>(-1.0);
+    static constexpr R max = static_cast<R>(1.0);
 
-    Gene(Integral init_value = 0) : _value{init_value} {}
+    Gene(I init_value = 0) : _value{init_value} {}
 
     /**
      * Creates a random gene
      */
-    static Gene<Integral, Real> createRandom()
+    static Gene<I, R> createRandom()
     {
-        return Gene<Integral, Real>(gen());
+        return Gene<I, R>(gen());
     }
 
-    Integral get() const
+    I get() const
     {
         return _value;
     }
 
-    void set(Integral new_value)
+    void set(I new_value)
     {
         _value = new_value;
     }
 
     static constexpr size_t bitsNum()
     {
-        return sizeof(Integral) * 8;
+        return sizeof(I) * 8;
     }
 
     /**
      * Converts gene's encoded value to real (floating point type) number
      */
-    Real getReal() const
+    R getReal() const
     {
-        return min + (static_cast<Real>(_value) * UINT_SCALER) * (max - min);
+        return min + (static_cast<R>(_value) * UINT_SCALER) * (max - min);
     }
 
     /**
@@ -78,7 +78,7 @@ public:
 
 // ============================================================
 
-template <typename Integral, typename Real>
-Random::IntGenerator<Integral> Gene<Integral, Real>::gen(0, std::numeric_limits<Integral>::max());
+template <typename I, typename R>
+Random::IntGenerator<I> Gene<I, R>::gen(0, std::numeric_limits<I>::max());
 
 #endif

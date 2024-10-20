@@ -7,11 +7,11 @@
 
 #include <generators.h>
 
-template <typename Integral, typename Real, size_t genes_num, size_t population_size>
+template <typename I, typename R, size_t genes_num, size_t population_size>
 class SinglePointCrossBreeder
 {
-    using GenerationType = Generation<Integral, Real, genes_num, population_size>;
-    using IndividualType = Individual<Integral, Real, genes_num>;
+    using GenerationType = Generation<I, R, genes_num, population_size>;
+    using IndividualType = Individual<I, R, genes_num>;
 
     static Random::IntGenerator<size_t> cross_point_gen;
 
@@ -39,7 +39,7 @@ public:
             {
                 size_t cross_point = cross_point_gen();
 
-                size_t division_gene = cross_point / (8 * sizeof(Integral));
+                size_t division_gene = cross_point / (8 * sizeof(I));
 
                 auto &genes_a = new_population.at(i).mutableGenes();
                 auto &genes_b = new_population.at(i + 1).mutableGenes();
@@ -47,14 +47,14 @@ public:
                 if (division_gene > 0)
                     std::swap_ranges(genes_a.begin(), genes_a.begin() + division_gene, genes_b.begin());
 
-                Integral mask = (~0x0) << cross_point;
-                Integral mask_inv = ~mask;
+                I mask = (~0x0) << cross_point;
+                I mask_inv = ~mask;
 
                 auto division_gene_a = genes_a.at(division_gene).get();
                 auto division_gene_b = genes_b.at(division_gene).get();
 
-                Integral ab = (division_gene_a & mask_inv) | (division_gene_b & mask);
-                Integral ba = (division_gene_a & mask) | (division_gene_b & mask_inv);
+                I ab = (division_gene_a & mask_inv) | (division_gene_b & mask);
+                I ba = (division_gene_a & mask) | (division_gene_b & mask_inv);
 
                 genes_a.at(division_gene) = ab;
                 genes_b.at(division_gene) = ba;
@@ -66,9 +66,9 @@ public:
 
 // ============================================================
 
-template <typename Integral, typename Real, size_t genes_num, size_t population_size>
+template <typename I, typename R, size_t genes_num, size_t population_size>
 Random::IntGenerator<size_t>
-    SinglePointCrossBreeder<Integral, Real, genes_num, population_size>::
-        cross_point_gen(1, Individual<Integral, Real, genes_num>::bitsNum() - 1);
+    SinglePointCrossBreeder<I, R, genes_num, population_size>::
+        cross_point_gen(1, Individual<I, R, genes_num>::bitsNum() - 1);
 
 #endif

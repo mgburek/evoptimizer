@@ -4,10 +4,10 @@
 #include <cstdlib>
 #include <string>
 
-template <typename Integral, typename Real, size_t genes_num, size_t population_size>
+template <typename I, typename R, size_t genes_num, size_t population_size>
 class Generation
 {
-    using IndividualType = Individual<Integral, Real, genes_num>;
+    using IndividualType = Individual<I, R, genes_num>;
     std::array<IndividualType, population_size> _population;
 
 public:
@@ -17,10 +17,10 @@ public:
     Generation()
         : _population() {}
 
-    Generation(const Generation<Integral, Real, genes_num, population_size> &other)
+    Generation(const Generation<I, R, genes_num, population_size> &other)
         : _population(other._population) {}
 
-    static Generation<Integral, Real, genes_num, population_size> createRandom();
+    static Generation<I, R, genes_num, population_size> createRandom();
 
     std::string toString() const;
 
@@ -40,10 +40,10 @@ public:
 /**
  * Creates a random population
  */
-template <typename Integral, typename Real, size_t genes_num, size_t population_size>
-Generation<Integral, Real, genes_num, population_size> Generation<Integral, Real, genes_num, population_size>::createRandom()
+template <typename I, typename R, size_t genes_num, size_t population_size>
+Generation<I, R, genes_num, population_size> Generation<I, R, genes_num, population_size>::createRandom()
 {
-    Generation<Integral, Real, genes_num, population_size> generation;
+    Generation<I, R, genes_num, population_size> generation;
     std::generate(generation.mutablePopulation().begin(), generation.mutablePopulation().end(), []()
                   { return IndividualType::createRandom(); });
     return std::move(generation);
@@ -52,8 +52,8 @@ Generation<Integral, Real, genes_num, population_size> Generation<Integral, Real
 /**
  * Converts an indivdual to space separated std::string
  */
-template <typename Integral, typename Real, size_t genes_num, size_t population_size>
-std::string Generation<Integral, Real, genes_num, population_size>::toString() const
+template <typename I, typename R, size_t genes_num, size_t population_size>
+std::string Generation<I, R, genes_num, population_size>::toString() const
 {
     std::ostringstream str_stream;
     for (const IndividualType &individual : _population)

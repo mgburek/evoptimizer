@@ -7,16 +7,16 @@
 
 #include <generators.h>
 
-template <typename Integral, typename Real, size_t genes_num, size_t population_size>
+template <typename I, typename R, size_t genes_num, size_t population_size>
 class RankSelector
 {
-    using GenerationType = Generation<Integral, Real, genes_num, population_size>;
+    using GenerationType = Generation<I, R, genes_num, population_size>;
 
 public:
     RankSelector() {}
 
     GenerationType operator()(
-        const GenerationType &generation, std::array<Real, population_size> fitness) const
+        const GenerationType &generation, std::array<R, population_size> fitness) const
     {
         std::array<size_t, population_size> indices;
         std::iota(indices.begin(), indices.end(), 0); // fills array with incrementing values
