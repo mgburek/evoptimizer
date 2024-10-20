@@ -25,13 +25,9 @@ public:
     {
         GenerationType new_generation(generation);
 
-        // TODO: Rethink random generators
-        static std::random_device rd;
-        static std::mt19937 g(rd());
-
         auto &new_population = new_generation.mutablePopulation();
 
-        std::shuffle(new_population.begin(), new_population.end(), g);
+        std::shuffle(new_population.begin(), new_population.end(), Random::engine);
 
         for (size_t i = 0; i < new_generation.population().size(); i += 2)
         {
