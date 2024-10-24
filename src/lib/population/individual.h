@@ -42,8 +42,8 @@ namespace Evoptimzer
         return result;
     }
 
-    template <typename I, typename R, size_t genes_num>
-    constexpr size_t lengthInBits(const Individual<I, R, genes_num> &ind)
+    template <typename I, size_t genes_num>
+    static constexpr size_t lengthInBits()
     {
         return sizeof(I) * 8 * genes_num;
     }

@@ -1,70 +1,64 @@
 #ifndef EVOPTIMIZER_SINGLE_POINT_CROSS_BREEDER_H_
 #define EVOPTIMIZER_SINGLE_POINT_CROSS_BREEDER_H_
 
-#include <array>
 #include <algorithm>
-#include <numeric>
 
+#include <generation.h>
 #include <generators.h>
 
-template <typename I, typename R, size_t genes_num, size_t population_size>
-class SinglePointCrossBreeder
+namespace Evoptimzer
 {
-    using GenerationType = Generation<I, R, genes_num, population_size>;
-    using IndividualType = Individual<I, R, genes_num>;
-
-    static Random::IntGenerator<size_t> cross_point_gen;
-
-    const double _crossing_chance;
-
-public:
-    SinglePointCrossBreeder(double crossing_chance)
-        : _crossing_chance(crossing_chance) {}
-
-    GenerationType operator()(const GenerationType &generation) const
+    template <typename I, typename R, size_t genes_num, size_t population_size>
+    class SinglePointCrossBreeder
     {
-        GenerationType new_generation(generation);
+        static Random::IntGenerator<size_t> cross_point_gen;
 
-        auto &new_population = new_generation.mutablePopulation();
+        const double _crossing_chance;
 
-        std::shuffle(new_population.begin(), new_population.end(), Random::engine);
+    public:
+        SinglePointCrossBreeder(double crossing_chance)
+            : _crossing_chance(crossing_chance) {}
 
-        for (size_t i = 0; i < new_generation.population().size(); i += 2)
+        Generation<I, R, genes_num, population_size> operator()(const Generation<I, R, genes_num, population_size> &generation) const
         {
-            if (Random::zero_one() < _crossing_chance)
+            Generation crossed_generation(generation);
+            std::shuffle(crossed_generation.begin(), crossed_generation.end(), Random::engine);
+
+            for (size_t i = 0; i < crossed_generation.size(); i += 2)
             {
-                size_t cross_point = cross_point_gen();
+                if (Random::zero_one() < _crossing_chance)
+                {
+                    size_t cross_point = cross_point_gen();
 
-                size_t division_gene = cross_point / (8 * sizeof(I));
+                    size_t division_gene = cross_point / Evoptimzer::lengthInBits<I, 1>();
 
-                auto &genes_a = new_population.at(i).mutableGenes();
-                auto &genes_b = new_population.at(i + 1).mutableGenes();
+                    auto &ind_a = crossed_generation.at(i);
+                    auto &ind_b = crossed_generation.at(i + 1);
 
-                if (division_gene > 0)
-                    std::swap_ranges(genes_a.begin(), genes_a.begin() + division_gene, genes_b.begin());
+                    if (division_gene > 0)
+                        std::swap_ranges(ind_a.begin(), ind_a.begin() + division_gene, ind_b.begin());
 
-                I mask = (~0x0) << cross_point;
-                I mask_inv = ~mask;
+                    I mask = (~0x0) << cross_point;
+                    I mask_inv = ~mask;
 
-                auto division_gene_a = genes_a.at(division_gene).get();
-                auto division_gene_b = genes_b.at(division_gene).get();
+                    auto division_gene_a = ind_a.at(division_gene).get();
+                    auto division_gene_b = ind_b.at(division_gene).get();
 
-                I ab = (division_gene_a & mask_inv) | (division_gene_b & mask);
-                I ba = (division_gene_a & mask) | (division_gene_b & mask_inv);
+                    I ab = (division_gene_a & mask_inv) | (division_gene_b & mask);
+                    I ba = (division_gene_a & mask) | (division_gene_b & mask_inv);
 
-                genes_a.at(division_gene) = ab;
-                genes_b.at(division_gene) = ba;
+                    ind_a.at(division_gene) = ab;
+                    ind_b.at(division_gene) = ba;
+                }
             }
+            return crossed_generation;
         }
-        return new_generation;
-    }
-};
+    };
 
-// ============================================================
+    // ============================================================
 
-template <typename I, typename R, size_t genes_num, size_t population_size>
-Random::IntGenerator<size_t>
-    SinglePointCrossBreeder<I, R, genes_num, population_size>::
-        cross_point_gen(1, Individual<I, R, genes_num>::bitsNum() - 1);
-
+    template <typename I, typename R, size_t genes_num, size_t population_size>
+    Random::IntGenerator<size_t>
+        SinglePointCrossBreeder<I, R, genes_num, population_size>::cross_point_gen(1, lengthInBits<I, genes_num>() - 1);
+}
 #endif
