@@ -1,80 +1,53 @@
 #ifndef EVOPTIMIZER_POPULATION_INDIVIDUAL_H_
 #define EVOPTIMIZER_POPULATION_INDIVIDUAL_H_
 
-#include <cstddef>
-#include <array>
-#include <string>
-#include <sstream>
 #include <algorithm>
+#include <array>
+#include <cstddef>
+#include <sstream>
+#include <string>
 
 #include "gene.h"
 
-template <typename I, typename R, size_t genes_num>
-class Individual
+namespace Evoptimzer
 {
-    using GeneType = Gene<I, R>;
-    std::array<GeneType, genes_num> _genes;
+    template <typename I, typename R, size_t genes_num>
+    using Individual = std::array<Gene<I, R>, genes_num>;
 
-public:
-    Individual(const std::array<GeneType, genes_num> &genes)
-        : _genes(genes) {}
-
-    Individual()
-        : _genes() {}
-
-    static Individual<I, R, genes_num> createRandom();
-
-    std::string toString() const;
-
-    std::array<GeneType, genes_num> &mutableGenes()
+    template <typename I, typename R, size_t genes_num>
+    Individual<I, R, genes_num> createRandom()
     {
-        return _genes;
+        Individual<I, R, genes_num> ind;
+        std::generate(ind.begin(), ind.end(), []()
+                      { return Gene<I, R>::createRandom(); });
+        return ind;
     }
 
-    const std::array<GeneType, genes_num> &genes() const
+    template <typename I, typename R, size_t genes_num>
+    std::string toString(const Individual<I, R, genes_num> &ind)
     {
-        return _genes;
+        std::ostringstream str_stream;
+        for (const Gene<I, R> &gene : ind)
+            str_stream << gene.toString() << " ";
+
+        return str_stream.str();
     }
 
-    const std::array<R, genes_num> realGenes() const
+    template <typename I, typename R, size_t genes_num>
+    std::array<R, genes_num> toReal(const Individual<I, R, genes_num> &ind)
     {
-        std::array<R, genes_num> real_values;
-        for (size_t i = 0; i < genes_num; i++)
-            real_values[i] = _genes[i].getReal();
-        return real_values;
+        std::array<R, genes_num> result;
+        std::transform(ind.begin(), ind.end(), result.begin(), [](const Gene<I, R> &gene)
+                       { return gene.getReal(); });
+        return result;
     }
 
-    static constexpr size_t bitsNum()
+    template <typename I, typename R, size_t genes_num>
+    constexpr size_t lengthInBits(const Individual<I, R, genes_num> &ind)
     {
         return sizeof(I) * 8 * genes_num;
     }
-};
 
-// ============================================================
-
-/**
- * Creates an individual with random genes
- */
-template <typename I, typename R, size_t genes_num>
-Individual<I, R, genes_num> Individual<I, R, genes_num>::createRandom()
-{
-    std::array<GeneType, genes_num> genes;
-    std::generate(genes.begin(), genes.end(), []()
-                  { return GeneType::createRandom(); });
-    return Individual<I, R, genes_num>(std::move(genes));
-}
-
-/**
- * Converts an indivdual to space separated std::string
- */
-template <typename I, typename R, size_t genes_num>
-std::string Individual<I, R, genes_num>::toString() const
-{
-    std::ostringstream str_stream;
-    for (const GeneType &gene : _genes)
-        str_stream << gene.toString() << " ";
-
-    return str_stream.str();
 }
 
 #endif
