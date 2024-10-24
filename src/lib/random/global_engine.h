@@ -9,7 +9,7 @@ namespace Random
     static std::random_device rd = std::random_device();
 
     // Mersenne twister engine
-    static std::mt19937 engine;
+    static std::mt19937 engine(rd());
 }
 
 #endif

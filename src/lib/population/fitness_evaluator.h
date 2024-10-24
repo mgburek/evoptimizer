@@ -42,7 +42,7 @@ namespace Evoptimizer
         operator()(const Generation<I, R, genes_num, population_size> &generation) const
         {
             std::array<R, population_size> fitness;
-            for (size_t i = 0; ++i < population_size;)
+            for (size_t i = 0; i < population_size; ++i)
                 fitness[i] = evaluate(generation[i]);
 
             return fitness;
