@@ -9,7 +9,7 @@
 
 #include "individual.h"
 
-namespace Evoptimzer
+namespace Evoptimizer
 {
     template <typename I, typename R, size_t genes_num, size_t population_size>
     using Generation = std::array<Individual<I, R, genes_num>, population_size>;
@@ -28,7 +28,7 @@ namespace Evoptimzer
     {
         std::ostringstream str_stream;
         for (const Individual<I, R, genes_num> &ind : generation)
-            str_stream << Evoptimzer::toString(ind) << std::endl;
+            str_stream << toString(ind) << std::endl;
 
         return str_stream.str();
     }

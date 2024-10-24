@@ -6,7 +6,7 @@
 #include <generation.h>
 #include <generators.h>
 
-namespace Evoptimzer
+namespace Evoptimizer
 {
     template <typename I, typename R, size_t genes_num, size_t population_size>
     class SinglePointCrossBreeder
@@ -30,7 +30,7 @@ namespace Evoptimzer
                 {
                     size_t cross_point = cross_point_gen();
 
-                    size_t division_gene = cross_point / Evoptimzer::lengthInBits<I, 1>();
+                    size_t division_gene = cross_point / lengthInBits<I, 1>();
 
                     auto &ind_a = crossed_generation.at(i);
                     auto &ind_b = crossed_generation.at(i + 1);

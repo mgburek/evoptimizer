@@ -9,7 +9,7 @@
 
 #include "gene.h"
 
-namespace Evoptimzer
+namespace Evoptimizer
 {
     template <typename I, typename R, size_t genes_num>
     using Individual = std::array<Gene<I, R>, genes_num>;
