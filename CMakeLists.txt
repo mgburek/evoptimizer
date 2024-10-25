@@ -15,4 +15,8 @@ set(EXAMPLE_EXECUTABLE_NAME "lib_example")
 
 option(COMPILE_EXAMPLE OFF)
 
+if(BUILD_TESTING)
+    enable_testing()
+endif()
+
 add_subdirectory("src")

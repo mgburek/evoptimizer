@@ -1,5 +1,12 @@
 add_subdirectory("lib")
 
+if(BUILD_TESTING)
+    message("Tests enabled")
+    add_subdirectory("tests")
+else()
+    message("Tests not enabled")
+endif()
+
 if(COMPILE_EXAMPLE)
     message("Compiling with example executable")
     add_subdirectory("example")

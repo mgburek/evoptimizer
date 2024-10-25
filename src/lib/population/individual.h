@@ -38,7 +38,7 @@ namespace Evoptimizer
     {
         std::array<R, genes_num> result;
         std::transform(ind.begin(), ind.end(), result.begin(), [](const Gene<I, R> &gene)
-                       { return gene.getReal(); });
+                       { return gene.toReal(); });
         return result;
     }
 
