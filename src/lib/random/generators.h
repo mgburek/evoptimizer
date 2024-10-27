@@ -20,7 +20,7 @@ namespace Random
         IntGenerator(I min, I max)
             : _distribution(min, max) {}
 
-        double operator()()
+        I operator()()
         {
             return _distribution(Random::engine);
         }
@@ -41,7 +41,7 @@ namespace Random
         RealGenerator(R min, R max)
             : _distribution(min, max) {}
 
-        double operator()()
+        R operator()()
         {
             return _distribution(Random::engine);
         }
