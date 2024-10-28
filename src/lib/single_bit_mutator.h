@@ -3,6 +3,7 @@
 
 #include <algorithm>
 
+#include <generation.h>
 #include <generators.h>
 
 namespace Evoptimizer
@@ -21,24 +22,29 @@ namespace Evoptimizer
         SingleBitMutator(double mutation_chance)
             : _mutation_chance(mutation_chance) {}
 
+        static void mutate(Individual<I, R, genes_num> &ind, size_t mutation_point)
+        {
+            auto mutated_gene_num = mutation_point / lengthInBits<I, 1>();
+
+            auto mask = 0x1 << (lengthInBits<I, 1>() - mutation_point % lengthInBits<I, 1>() - 1);
+            auto gene = ind.at(mutated_gene_num).get();
+            ind[mutated_gene_num].set(gene ^ mask);
+        }
+
         Generation<I, R, genes_num, population_size> operator()(const Generation<I, R, genes_num, population_size> &generation) const
         {
             Generation<I, R, genes_num, population_size> mutated(generation);
 
-            auto mutate = [this](Individual<I, R, genes_num> &individual)
+            auto mutate_lam = [this](Individual<I, R, genes_num> &individual)
             {
                 if (Random::zero_one() < _mutation_chance)
                 {
                     size_t mutation_point = mutation_point_gen();
-                    auto mutated_gene_num = mutation_point / lengthInBits<I, 1>();
-
-                    auto mask = 0x1 << (mutation_point % lengthInBits<I, 1>());
-                    auto gene = individual[mutated_gene_num].get();
-                    individual[mutated_gene_num].set(gene ^ mask);
+                    mutate(individual, mutation_point);
                 }
             };
 
-            std::for_each(mutated.begin(), mutated.end(), mutate);
+            std::for_each(mutated.begin(), mutated.end(), mutate_lam);
             return mutated;
         }
     };

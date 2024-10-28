@@ -10,6 +10,7 @@ FetchContent_MakeAvailable(googletest)
 set(
     TESTS
     single_point_cross_breeder_test
+    single_bit_mutator_test
 )
 
 foreach(test IN LISTS TESTS)

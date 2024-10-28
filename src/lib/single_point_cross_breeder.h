@@ -23,8 +23,8 @@ namespace Evoptimizer
         {
             size_t division_gene = cross_point / lengthInBits<I, 1>();
 
-            if (division_gene > 0)
-                std::swap_ranges(ind1.begin(), ind1.begin() + division_gene, ind2.begin());
+            if (division_gene < genes_num)
+                std::swap_ranges(ind1.rbegin(), ind1.rend() - division_gene, ind2.rbegin());
 
             I mask = (~0x0) << (lengthInBits<I, 1>() - cross_point % lengthInBits<I, 1>());
             I mask_inv = ~mask;
@@ -47,7 +47,7 @@ namespace Evoptimizer
             for (size_t i = 0; i < crossed_generation.size(); i += 2)
             {
                 if (Random::zero_one() < _crossing_chance)
-                   cross(crossed_generation.at(i), crossed_generation.at(i + 1), cross_point_gen());
+                    cross(crossed_generation.at(i), crossed_generation.at(i + 1), cross_point_gen());
             }
             return crossed_generation;
         }
