@@ -41,7 +41,7 @@ namespace Evoptimizer
 
         Generation<I, R, genes_num, population_size> operator()(const Generation<I, R, genes_num, population_size> &generation) const
         {
-            Generation crossed_generation(generation);
+            Generation<I, R, genes_num, population_size> crossed_generation(generation);
             std::shuffle(crossed_generation.begin(), crossed_generation.end(), Random::engine);
 
             for (size_t i = 0; i < crossed_generation.size(); i += 2)
