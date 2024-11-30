@@ -5,7 +5,7 @@ set(
 )
 
 
-add_library(${UTILITY_LIB_NAME} STATIC ${HEADERS})
-set_target_properties(${UTILITY_LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+add_library(${RANDOM_LIB_NAME} STATIC ${HEADERS})
+set_target_properties(${RANDOM_LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
-target_include_directories(${UTILITY_LIB_NAME} PUBLIC "./")
+target_include_directories(${RANDOM_LIB_NAME} PUBLIC "./")

@@ -5,8 +5,8 @@ set(
     single_bit_mutator.h
 )
 
-set(POPULATION_LIB_NAME population_lib)
-set(UTILITY_LIB_NAME utility_lib)
+set(POPULATION_LIB_NAME "population_lib")
+set(RANDOM_LIB_NAME "random_lib")
 
 add_subdirectory("random")
 add_subdirectory("population")
@@ -25,5 +25,5 @@ target_link_libraries(
     ${LIBRARY_NAME} 
     PUBLIC 
     ${POPULATION_LIB_NAME}
-    ${UTILITY_LIB_NAME}
+    ${RANDOM_LIB_NAME}
 )
