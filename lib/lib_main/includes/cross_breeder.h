@@ -1,8 +1,12 @@
 #ifndef EVOPTIMIZER_INCLUDES_CROSS_BREEDER_H
 #define EVOPTIMIZER_INCLUDES_CROSS_BREEDER_H
 
-namespace Evoptimizer {
+#include <algorithm>
 
+#include <generation.h>
+#include <generators.h>
+
+namespace Evoptimizer {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class CrossBreeder {
   const double _crossing_chance;
