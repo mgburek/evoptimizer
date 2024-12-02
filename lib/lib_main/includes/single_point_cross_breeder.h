@@ -8,7 +8,7 @@
 
 #include "cross_breeder.h"
 
-namespace Evoptimizer {
+namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class SinglePointCrossBreeder
     : public CrossBreeder<I, R, genes_num, population_size> {
@@ -54,5 +54,5 @@ Random::IntGenerator<size_t>
     SinglePointCrossBreeder<I, R, genes_num, population_size>::cross_point_gen(
         1,
         lengthInBits<I, genes_num>() - 1);
-}  // namespace Evoptimizer
+}  // namespace Evo
 #endif

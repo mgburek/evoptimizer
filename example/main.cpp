@@ -23,8 +23,8 @@ int main() {
   constexpr size_t gnum = 10;
   constexpr size_t psize = 500;
 
-  Evoptimizer::Gene<I, R>::max = 40.0;
-  Evoptimizer::Gene<I, R>::min = -40.0;
+  Evo::Gene<I, R>::max = 40.0;
+  Evo::Gene<I, R>::min = -40.0;
 
   auto fit_hypersphercial = [](const std::array<R, gnum>& x) {
     R result = 0.0;
@@ -50,10 +50,10 @@ int main() {
 
   auto start = std::chrono::steady_clock::now();
 
-  auto evoptimizer = Evoptimizer::Evoptimizer<I, R, gnum, psize>(
-      fit_hypersphercial, new Evoptimizer::RankSelector<I, R, gnum, psize>(),
-      new Evoptimizer::SinglePointCrossBreeder<I, R, gnum, psize>(0.9),
-      new Evoptimizer::SingleBitMutator<I, R, gnum, psize>(0.4));
+  auto evoptimizer = Evo::Evoptimizer<I, R, gnum, psize>(
+      fit_hypersphercial, new Evo::RankSelector<I, R, gnum, psize>(),
+      new Evo::SinglePointCrossBreeder<I, R, gnum, psize>(0.9),
+      new Evo::SingleBitMutator<I, R, gnum, psize>(0.4));
 
   auto result = evoptimizer(generations_num);
   std::cout << result.at(0) << std::endl;

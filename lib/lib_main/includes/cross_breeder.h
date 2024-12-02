@@ -6,7 +6,7 @@
 #include <generation.h>
 #include <generators.h>
 
-namespace Evoptimizer {
+namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class CrossBreeder {
   const double _crossing_chance;
@@ -33,6 +33,6 @@ class CrossBreeder {
     return crossed_generation;
   }
 };
-}  // namespace Evoptimizer
+}  // namespace Evo
 
 #endif  // EVOPTIMIZER_INCLUDES_CROSS_BREEDER_H

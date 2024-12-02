@@ -9,7 +9,7 @@
 #include "mutator.h"
 #include "selector.h"
 
-namespace Evoptimizer {
+namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class Evoptimizer {
   FitnessEvaluator<I, R, genes_num, population_size> _evaluator;
@@ -46,6 +46,6 @@ class Evoptimizer {
     return toReal(gen0[min_idx]);
   }
 };
-}  // namespace Evoptimizer
+}  // namespace Evo
 
 #endif  // EVOPTIMIZER_INCLUDES_EVOPTIMIZER_H

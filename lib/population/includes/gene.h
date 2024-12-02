@@ -6,7 +6,7 @@
 
 #include <generators.h>
 
-namespace Evoptimizer
+namespace Evo
 {
     template <typename I, typename R>
     class Gene

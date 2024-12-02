@@ -9,7 +9,7 @@
 
 #include "individual.h"
 
-namespace Evoptimizer
+namespace Evo
 {
     template <typename I, typename R, size_t genes_num, size_t population_size>
     using Generation = std::array<Individual<I, R, genes_num>, population_size>;

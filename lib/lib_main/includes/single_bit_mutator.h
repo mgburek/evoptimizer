@@ -5,7 +5,7 @@
 
 #include "mutator.h"
 
-namespace Evoptimizer {
+namespace Evo {
 /**
  * Mutates at most one bit of each individual according to mutation chance
  */
@@ -41,6 +41,6 @@ Random::IntGenerator<size_t>
         1,
         lengthInBits<I, genes_num>() - 1);
 
-}  // namespace Evoptimizer
+}  // namespace Evo
 
 #endif

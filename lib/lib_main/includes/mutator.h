@@ -6,7 +6,7 @@
 #include <generation.h>
 #include <generators.h>
 
-namespace Evoptimizer {
+namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class Mutator {
   const double _mutation_chance;
@@ -31,5 +31,5 @@ class Mutator {
     return mutated;
   }
 };
-}  // namespace Evoptimizer
+}  // namespace Evo
 #endif  // EVOPTIMIZER_INCLUDES_MUTATOR_H

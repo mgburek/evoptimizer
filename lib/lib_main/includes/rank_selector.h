@@ -9,7 +9,7 @@
 
 #include "selector.h"
 
-namespace Evoptimizer {
+namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class RankSelector : public Selector<I, R, genes_num, population_size> {
  public:
@@ -52,6 +52,6 @@ class RankSelector : public Selector<I, R, genes_num, population_size> {
     return new_generation;
   }
 };
-}  // namespace Evoptimizer
+}  // namespace Evo
 
 #endif
