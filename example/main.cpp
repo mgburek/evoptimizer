@@ -11,8 +11,9 @@
 #include <single_bit_mutator.h>
 
 #include <fstream>
-#include <numbers>
 #include <chrono>
+
+#define PI 3.1415926535
 
 int main()
 {
@@ -37,7 +38,7 @@ int main()
     {
         constexpr const R a = 20.0;
         constexpr const R b = 0.2;
-        const R c = static_cast<R>(2.0 * std::numbers::pi_v<double>);
+        const R c = static_cast<R>(2.0 * PI);
         constexpr const R d = 1.0 / static_cast<R>(gnum);
 
         R squares_sum = 0.0;

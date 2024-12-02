@@ -2,7 +2,9 @@ set(
     HEADERS
     "includes/rank_selector.h"
     "includes/single_point_cross_breeder.h"
+    "includes/mutator.h"
     "includes/single_bit_mutator.h"
+    "includes/evoptimizer.h"
 )
 
 add_library(${LIBRARY_NAME} STATIC ${HEADERS})
