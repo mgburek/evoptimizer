@@ -19,9 +19,9 @@
 int main() {
   using I = uint16_t;
   using R = double;
-  constexpr size_t generations_num = 500;
-  constexpr size_t gnum = 30;
-  constexpr size_t psize = 5000;
+  constexpr size_t generations_num = 50;
+  constexpr size_t gnum = 10;
+  constexpr size_t psize = 500;
 
   Evoptimizer::Gene<I, R>::max = 40.0;
   Evoptimizer::Gene<I, R>::min = -40.0;
@@ -48,36 +48,15 @@ int main() {
            std::exp(d * cosinuses_sum) + a + exp(1);
   };
 
-  auto evaluator =
-      Evoptimizer::FitnessEvaluator<I, R, gnum, psize>(fit_hypersphercial);
-  auto selector = Evoptimizer::RankSelector<I, R, gnum, psize>();
-  auto cross = Evoptimizer::SinglePointCrossBreeder<I, R, gnum, psize>(0.9);
-  auto mutate = Evoptimizer::SingleBitMutator<I, R, gnum, psize>(0.4);
+  auto start = std::chrono::steady_clock::now();
 
   auto evoptimizer = Evoptimizer::Evoptimizer<I, R, gnum, psize>(
-      evaluator, new Evoptimizer::RankSelector<I, R, gnum, psize>(),
+      fit_hypersphercial, new Evoptimizer::RankSelector<I, R, gnum, psize>(),
       new Evoptimizer::SinglePointCrossBreeder<I, R, gnum, psize>(0.9),
       new Evoptimizer::SingleBitMutator<I, R, gnum, psize>(0.4));
 
-  auto gen0 = Evoptimizer::createRandom<I, R, gnum, psize>();
-
-  auto start = std::chrono::steady_clock::now();
-
-  for (size_t i = 0; i <= generations_num; ++i) {
-    auto fitness = evaluator(gen0);
-
-    if (i % (generations_num / 10) == 0) {
-      auto min_v = std::min_element(fitness.begin(), fitness.end());
-      std::cout << i << ": " << (min_v != fitness.end() ? *min_v : -1.0)
-                << std::endl;
-      std::cout << Evoptimizer::toString(gen0[0]) << std::endl;
-      std::cout << std::endl;
-    }
-
-    auto selected = selector(gen0, fitness);
-    auto crossed = cross(selected);
-    gen0 = mutate(crossed);
-  }
+  auto result = evoptimizer(generations_num);
+  std::cout << result.at(0) << std::endl;
 
   auto finish = std::chrono::steady_clock::now();
   auto duration =
