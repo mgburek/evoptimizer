@@ -1,8 +1,9 @@
 set(
     HEADERS
     "includes/rank_selector.h"
-    "includes/single_point_cross_breeder.h"
+    "includes/cross_breeder.h"
     "includes/mutator.h"
+    "includes/single_point_cross_breeder.h"
     "includes/single_bit_mutator.h"
     "includes/evoptimizer.h"
 )

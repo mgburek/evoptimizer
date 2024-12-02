@@ -8,7 +8,7 @@ TEST(SinglePointCrossBreeder, Test1)
     const auto b = Evoptimizer::Gene<uint8_t, float>(0x00);
     Evoptimizer::Individual<uint8_t, float, 1> ind1 = {a};
     Evoptimizer::Individual<uint8_t, float, 1> ind2 = {b};
-    Evoptimizer::SinglePointCrossBreeder<uint8_t, float, 1, 2>::cross(ind1, ind2, 4);
+    Evoptimizer::SinglePointCrossBreeder<uint8_t, float, 1, 2>::crossAtPoint(ind1, ind2, 4);
 
     EXPECT_EQ(ind1.at(0).get(), 0xF0);
     EXPECT_EQ(ind2.at(0).get(), 0x0F);
@@ -20,7 +20,7 @@ TEST(SinglePointCrossBreeder, Test2)
     const auto b = Evoptimizer::Gene<uint16_t, float>(0x0000);
     Evoptimizer::Individual<uint16_t, float, 3> ind1 = {a, a, a};
     Evoptimizer::Individual<uint16_t, float, 3> ind2 = {b, b, b};
-    Evoptimizer::SinglePointCrossBreeder<uint16_t, float, 3, 2>::cross(ind1, ind2, 24);
+    Evoptimizer::SinglePointCrossBreeder<uint16_t, float, 3, 2>::crossAtPoint(ind1, ind2, 24);
 
     EXPECT_EQ(ind1.at(0).get(), 0xFFFF);
     EXPECT_EQ(ind1.at(1).get(), 0xFF00);
@@ -37,7 +37,7 @@ TEST(SinglePointCrossBreeder, Test3)
 
     Evoptimizer::Individual<uint8_t, float, 2> ind1 = {a, a};
     Evoptimizer::Individual<uint8_t, float, 2> ind2 = {b, b};
-    Evoptimizer::SinglePointCrossBreeder<uint8_t, float, 2, 2>::cross(ind1, ind2, 5);
+    Evoptimizer::SinglePointCrossBreeder<uint8_t, float, 2, 2>::crossAtPoint(ind1, ind2, 5);
 
     EXPECT_EQ(ind1.at(0).get(), 0xF8);
     EXPECT_EQ(ind1.at(1).get(), 0x00);
@@ -51,7 +51,7 @@ TEST(SinglePointCrossBreeder, Test4)
     const auto b = Evoptimizer::Gene<uint32_t, float>(0x0000'0000);
     Evoptimizer::Individual<uint32_t, float, 2> ind1 = {a, a};
     Evoptimizer::Individual<uint32_t, float, 2> ind2 = {b, b};
-    Evoptimizer::SinglePointCrossBreeder<uint32_t, float, 2, 2>::cross(ind1, ind2, 60);
+    Evoptimizer::SinglePointCrossBreeder<uint32_t, float, 2, 2>::crossAtPoint(ind1, ind2, 60);
 
     EXPECT_EQ(ind1.at(0).get(), 0xFFFF'FFFF);
     EXPECT_EQ(ind1.at(1).get(), 0xFFFF'FFF0);
@@ -65,7 +65,7 @@ TEST(SinglePointCrossBreeder, Test5)
     const auto b = Evoptimizer::Gene<uint16_t, float>(0x0000);
     Evoptimizer::Individual<uint16_t, float, 5> ind1 = {a, a, a, a, a};
     Evoptimizer::Individual<uint16_t, float, 5> ind2 = {b, b, b, b, b};
-    Evoptimizer::SinglePointCrossBreeder<uint16_t, float, 5, 2>::cross(ind1, ind2, 43);
+    Evoptimizer::SinglePointCrossBreeder<uint16_t, float, 5, 2>::crossAtPoint(ind1, ind2, 43);
 
     EXPECT_EQ(ind1.at(0).get(), 0xFFFF);
     EXPECT_EQ(ind1.at(1).get(), 0xFFFF);
@@ -87,7 +87,7 @@ TEST(SinglePointCrossBreeder, Test6)
 
     Evoptimizer::Individual<uint8_t, float, 2> ind1 = {a, a};
     Evoptimizer::Individual<uint8_t, float, 2> ind2 = {b, b};
-    Evoptimizer::SinglePointCrossBreeder<uint8_t, float, 2, 2>::cross(ind1, ind2, 0);
+    Evoptimizer::SinglePointCrossBreeder<uint8_t, float, 2, 2>::crossAtPoint(ind1, ind2, 0);
 
     EXPECT_EQ(ind1.at(0).get(), 0x00);
     EXPECT_EQ(ind1.at(1).get(), 0x00);
@@ -102,7 +102,7 @@ TEST(SinglePointCrossBreeder, Test7)
 
     Evoptimizer::Individual<uint8_t, float, 2> ind1 = {a, a};
     Evoptimizer::Individual<uint8_t, float, 2> ind2 = {b, b};
-    Evoptimizer::SinglePointCrossBreeder<uint8_t, float, 2, 2>::cross(ind1, ind2, 15);
+    Evoptimizer::SinglePointCrossBreeder<uint8_t, float, 2, 2>::crossAtPoint(ind1, ind2, 15);
 
     EXPECT_EQ(ind1.at(0).get(), 0xFF);
     EXPECT_EQ(ind1.at(1).get(), 0xFE);
