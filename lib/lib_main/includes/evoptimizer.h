@@ -1,6 +1,7 @@
 #ifndef EVOPTIMIZER_INCLUDES_EVOPTIMIZER_H
 #define EVOPTIMIZER_INCLUDES_EVOPTIMIZER_H
 
+#include <chrono>
 #include <memory>
 
 #include <fitness_evaluator.h>
@@ -37,6 +38,37 @@ class Evoptimizer {
       auto fitness = _evaluator(gen0);
       auto selected = (*_selector)(gen0, fitness);
       auto crossed = (*_cross_breeder)(selected);
+      gen0 = (*_mutator)(crossed);
+    }
+
+    auto final_fitness = _evaluator(gen0);
+    auto min_it = std::min_element(final_fitness.begin(), final_fitness.end());
+    auto min_idx = std::distance(final_fitness.begin(), min_it);
+    return toReal(gen0[min_idx]);
+  }
+
+  std::array<R, genes_num> operator()(
+      const std::chrono::milliseconds timeout) const {
+    Generation<I, R, genes_num, population_size> gen0 =
+        createRandom<I, R, genes_num, population_size>();
+
+    const auto start = std::chrono::steady_clock::now();
+
+    auto is_timeout = [&start, &timeout]() {
+      const auto now = std::chrono::steady_clock::now();
+      return (now - start) > timeout;
+    };
+
+    while (!is_timeout()) {
+      auto fitness = _evaluator(gen0);
+      if (is_timeout())
+        break;
+      auto selected = (*_selector)(gen0, fitness);
+      if (is_timeout())
+        break;
+      auto crossed = (*_cross_breeder)(selected);
+      if (is_timeout())
+        break;
       gen0 = (*_mutator)(crossed);
     }
 

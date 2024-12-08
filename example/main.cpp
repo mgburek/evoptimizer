@@ -19,9 +19,9 @@
 int main() {
   using I = uint16_t;
   using R = double;
-  constexpr size_t generations_num = 50;
-  constexpr size_t gnum = 10;
-  constexpr size_t psize = 500;
+  constexpr size_t generations_num = 150;
+  constexpr size_t gnum = 20;
+  constexpr size_t psize = 50;
 
   Evo::Gene<I, R>::max = 40.0;
   Evo::Gene<I, R>::min = -40.0;
@@ -55,12 +55,14 @@ int main() {
       new Evo::SinglePointCrossBreeder<I, R, gnum, psize>(0.9),
       new Evo::SingleBitMutator<I, R, gnum, psize>(0.4));
 
-  auto result = evoptimizer(generations_num);
+  auto result = evoptimizer(std::chrono::milliseconds(20));
+  // auto result = evoptimizer(generations_num);
+
   std::cout << result.at(0) << std::endl;
 
   auto finish = std::chrono::steady_clock::now();
   auto duration =
-      std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
-  std::cout << "Elapsed time: " << duration.count() << "ms" << std::endl;
+      std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
+  std::cout << "Elapsed time: " << duration.count() << "us" << std::endl;
   return 0;
 }
