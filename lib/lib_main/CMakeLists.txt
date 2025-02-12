@@ -9,13 +9,13 @@ set(
     "includes/evoptimizer.h"
 )
 
-add_library(${LIBRARY_NAME} STATIC ${HEADERS})
-set_target_properties(${LIBRARY_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+add_library(${EVOPTIMIZER_CLASSIC_LIB_NAME} STATIC ${HEADERS})
+set_target_properties(${EVOPTIMIZER_CLASSIC_LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
-target_include_directories(${LIBRARY_NAME} PUBLIC "includes")
+target_include_directories(${EVOPTIMIZER_CLASSIC_LIB_NAME} PUBLIC "includes")
 
 target_link_libraries(
-    ${LIBRARY_NAME} 
+    ${EVOPTIMIZER_CLASSIC_LIB_NAME} 
     PUBLIC 
     ${POPULATION_LIB_NAME}
     ${RANDOM_LIB_NAME}

@@ -1,30 +1,24 @@
+#include <algorithm>
+#include <chrono>
+#include <fstream>
 #include <iostream>
 #include <locale>
 
+#include <cross_breeder_single_point_mean.h>
 #include <evoptimizer.h>
-#include <fitness_evaluator.h>
-#include <gene.h>
-#include <generation.h>
-#include <global_engine.h>
-#include <individual.h>
-#include <rank_selector.h>
-#include <single_bit_mutator.h>
-#include <single_point_cross_breeder.h>
-
-#include <chrono>
-#include <fstream>
+#include <mutator_single_gene_additive.h>
+#include <selector_rank.h>
 
 #define PI 3.1415926535
 
 int main() {
-  using I = uint16_t;
   using R = double;
   constexpr size_t generations_num = 150;
   constexpr size_t gnum = 20;
   constexpr size_t psize = 50;
 
-  Evo::Gene<I, R>::max = 40.0;
-  Evo::Gene<I, R>::min = -40.0;
+  // Evo::R::max = 40.0;
+  // Evo::R::min = -40.0;
 
   auto fit_hypersphercial = [](const std::array<R, gnum>& x) {
     R result = 0.0;
@@ -50,15 +44,16 @@ int main() {
 
   auto start = std::chrono::steady_clock::now();
 
-  auto evoptimizer = Evo::Evoptimizer<I, R, gnum, psize>(
-      fit_hypersphercial, new Evo::RankSelector<I, R, gnum, psize>(),
-      new Evo::SinglePointCrossBreeder<I, R, gnum, psize>(0.9),
-      new Evo::SingleBitMutator<I, R, gnum, psize>(0.4));
+  auto evoptimizer = Evo::Evoptimizer<R, gnum, psize>(
+      fit_hypersphercial, new Evo::RankSelector<R, gnum, psize>(),
+      new Evo::SinglePointMeanCrossBreeder<R, gnum, psize>(0.9),
+      new Evo::SingleGeneAdditiveMutator<R, gnum, psize>(0.8));
 
   auto result = evoptimizer(std::chrono::milliseconds(20));
   // auto result = evoptimizer(generations_num);
 
-  std::cout << result.at(0) << std::endl;
+  std::cout << fit_hypersphercial(result) << std::endl;
+  std::cout << Evo::toString(result) << std::endl;
 
   auto finish = std::chrono::steady_clock::now();
   auto duration =
