@@ -26,4 +26,5 @@ target_link_libraries(
     ${EVOPTIMIZER_LIB_NAME} 
     PUBLIC
     ${RANDOM_LIB_NAME}
+    ${OPTIMIZER_INTERFACE_NAME}
 )

@@ -4,15 +4,16 @@
 #include <chrono>
 #include <memory>
 
-#include "fitness_evaluator.h"
+#include <optimizer.h>
 
 #include "cross_breeder.h"
+#include "fitness_evaluator.h"
 #include "mutator.h"
 #include "selector.h"
 
 namespace Evo {
 template <typename R, size_t genes_num, size_t population_size>
-class Evoptimizer {
+class Evoptimizer : public Optimizer<R, genes_num> {
   FitnessEvaluator<R, genes_num, population_size> _evaluator;
   std::unique_ptr<Selector<R, genes_num, population_size>> _selector;
   std::unique_ptr<CrossBreeder<R, genes_num, population_size>> _cross_breeder;
@@ -29,7 +30,8 @@ class Evoptimizer {
         _cross_breeder{cross_breeder},
         _mutator{mutator} {}
 
-  std::array<R, genes_num> operator()(const size_t generations_num) const {
+  std::array<R, genes_num> operator()(
+      const size_t generations_num) const override {
     RealGeneration<R, genes_num, population_size> gen0 =
         createRandomGeneration<R, genes_num, population_size>();
 
@@ -43,11 +45,11 @@ class Evoptimizer {
     auto final_fitness = _evaluator(gen0);
     auto min_it = std::min_element(final_fitness.begin(), final_fitness.end());
     auto min_idx = std::distance(final_fitness.begin(), min_it);
-    return toReal(gen0[min_idx]);
+    return gen0[min_idx];
   }
 
   std::array<R, genes_num> operator()(
-      const std::chrono::milliseconds timeout) const {
+      const std::chrono::milliseconds timeout) const override {
     RealGeneration<R, genes_num, population_size> gen0 =
         createRandomGeneration<R, genes_num, population_size>();
 

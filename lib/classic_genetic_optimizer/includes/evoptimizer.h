@@ -4,14 +4,16 @@
 #include <chrono>
 #include <memory>
 
-#include "fitness_evaluator.h"
+#include <optimizer.h>
+
 #include "cross_breeder.h"
+#include "fitness_evaluator.h"
 #include "mutator.h"
 #include "selector.h"
 
 namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>
-class Evoptimizer {
+class Evoptimizer : public Optimizer<R, genes_num> {
   FitnessEvaluator<I, R, genes_num, population_size> _evaluator;
   std::unique_ptr<Selector<I, R, genes_num, population_size>> _selector;
   std::unique_ptr<CrossBreeder<I, R, genes_num, population_size>>
@@ -29,7 +31,8 @@ class Evoptimizer {
         _cross_breeder{cross_breeder},
         _mutator{mutator} {}
 
-  std::array<R, genes_num> operator()(const size_t generations_num) const {
+  std::array<R, genes_num> operator()(
+      const size_t generations_num) const override {
     Generation<I, R, genes_num, population_size> gen0 =
         createRandom<I, R, genes_num, population_size>();
 
@@ -47,7 +50,7 @@ class Evoptimizer {
   }
 
   std::array<R, genes_num> operator()(
-      const std::chrono::milliseconds timeout) const {
+      const std::chrono::milliseconds timeout) const override {
     Generation<I, R, genes_num, population_size> gen0 =
         createRandom<I, R, genes_num, population_size>();
 
