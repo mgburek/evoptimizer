@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_INCLUDES_EVOPTIMIZER_H
-#define EVOPTIMIZER_INCLUDES_EVOPTIMIZER_H
+#ifndef EVOPTIMIZER_INCLUDES_CLASSIC_EVOPTIMIZER_H
+#define EVOPTIMIZER_INCLUDES_CLASSIC_EVOPTIMIZER_H
 
 #include <chrono>
 #include <memory>
@@ -89,6 +89,6 @@ class Evoptimizer : public Optimizer<R, genes_num> {
     return toReal(best);
   }
 };
-}  // namespace Evo
+}  // namespace Evo::Classic
 
-#endif  // EVOPTIMIZER_INCLUDES_EVOPTIMIZER_H
+#endif  // EVOPTIMIZER_INCLUDES_CLASSIC_EVOPTIMIZER_H

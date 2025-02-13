@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_SINGLE_BIT_MUTATOR_H_
-#define EVOPTIMIZER_SINGLE_BIT_MUTATOR_H_
+#ifndef EVOPTIMIZER_ALGORITHM_CLASSIC_SINGLE_BIT_MUTATOR_H
+#define EVOPTIMIZER_ALGORITHM_CLASSIC_SINGLE_BIT_MUTATOR_H
 
 #include <algorithm>
 
@@ -41,6 +41,6 @@ Random::IntGenerator<size_t>
         1,
         lengthInBits<I, genes_num>() - 1);
 
-}  // namespace Evo
+}  // namespace Evo::Classic
 
-#endif
+#endif  // EVOPTIMIZER_ALGORITHM_CLASSIC_SINGLE_BIT_MUTATOR_H

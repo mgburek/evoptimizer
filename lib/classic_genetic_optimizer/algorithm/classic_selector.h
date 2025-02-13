@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_INCLUDES_SELECTOR_H
-#define EVOPTIMIZER_INCLUDES_SELECTOR_H
+#ifndef EVOPTIMIZER_ALGORITHM_CLASSIC_SELECTOR_H
+#define EVOPTIMIZER_ALGORITHM_CLASSIC_SELECTOR_H
 
 #include <algorithm>
 
@@ -17,6 +17,6 @@ class Selector {
       const Generation<I, R, genes_num, population_size>& generation,
       const std::array<R, population_size>& fitness) const = 0;
 };
-}  // namespace Evo
+}  // namespace Evo::Classic
 
-#endif  // EVOPTIMIZER_INCLUDES_SELECTOR_H
+#endif  // EVOPTIMIZER_ALGORITHM_CLASSIC_SELECTOR_H

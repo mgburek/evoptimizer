@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_SINGLE_POINT_CROSS_BREEDER_H_
-#define EVOPTIMIZER_SINGLE_POINT_CROSS_BREEDER_H_
+#ifndef EVOPTIMIZER_ALGORITHM_CLASSIC_SINGLE_POINT_CROSS_BREEDER_H
+#define EVOPTIMIZER_ALGORITHM_CLASSIC_SINGLE_POINT_CROSS_BREEDER_H
 
 #include <algorithm>
 
@@ -53,5 +53,6 @@ Random::IntGenerator<size_t>
     SinglePointCrossBreeder<I, R, genes_num, population_size>::cross_point_gen(
         1,
         lengthInBits<I, genes_num>() - 1);
-}  // namespace Evo
-#endif
+}  // namespace Evo::Classic
+
+#endif  // EVOPTIMIZER_ALGORITHM_CLASSIC_SINGLE_POINT_CROSS_BREEDER_H

@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_INCLUDES_CROSS_BREEDER_H
-#define EVOPTIMIZER_INCLUDES_CROSS_BREEDER_H
+#ifndef EVOPTIMIZER_ALGORITHM_CLASSIC_CROSS_BREEDER_H
+#define EVOPTIMIZER_ALGORITHM_CLASSIC_CROSS_BREEDER_H
 
 #include <algorithm>
 
@@ -34,6 +34,6 @@ class CrossBreeder {
     return crossed_generation;
   }
 };
-}  // namespace Evo
+}  // namespace Evo::Classic
 
-#endif  // EVOPTIMIZER_INCLUDES_CROSS_BREEDER_H
+#endif  // EVOPTIMIZER_ALGORITHM_CLASSIC_CROSS_BREEDER_H

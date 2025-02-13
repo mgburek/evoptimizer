@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_RANK_SELECTOR_H_
-#define EVOPTIMIZER_RANK_SELECTOR_H_
+#ifndef EVOPTIMIZER_ALGORITHM_CLASSIC_RANK_SELECTOR_H
+#define EVOPTIMIZER_ALGORITHM_CLASSIC_RANK_SELECTOR_H
 
 #include <algorithm>
 #include <array>
@@ -52,6 +52,6 @@ class RankSelector : public Selector<I, R, genes_num, population_size> {
     return new_generation;
   }
 };
-}  // namespace Evo
+}  // namespace Evo::Classic
 
-#endif
+#endif  // EVOPTIMIZER_ALGORITHM_CLASSIC_RANK_SELECTOR_H

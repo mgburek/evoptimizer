@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_POPULATION_INDIVIDUAL_H_
-#define EVOPTIMIZER_POPULATION_INDIVIDUAL_H_
+#ifndef EVOPTIMIZER_POPULATION_CLASSIC_INDIVIDUAL_H
+#define EVOPTIMIZER_POPULATION_CLASSIC_INDIVIDUAL_H
 
 #include <algorithm>
 #include <array>
@@ -42,7 +42,6 @@ template <typename I, size_t genes_num>
 static constexpr size_t lengthInBits() {
   return sizeof(I) * 8 * genes_num;
 }
-
 }  // namespace Evo::Classic
 
-#endif
+#endif  // EVOPTIMIZER_POPULATION_CLASSIC_INDIVIDUAL_H

@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_POPULATION_GENE_H_
-#define EVOPTIMIZER_POPULATION_GENE_H_
+#ifndef EVOPTIMIZER_POPULATION_CLASSIC_GENE_H
+#define EVOPTIMIZER_POPULATION_CLASSIC_GENE_H
 
 #include <bitset>
 #include <limits>
@@ -63,4 +63,4 @@ template <typename I, typename R>
 Random::IntGenerator<I> Gene<I, R>::gen(0, std::numeric_limits<I>::max());
 }  // namespace Evo::Classic
 
-#endif
+#endif  // EVOPTIMIZER_POPULATION_CLASSIC_GENE_H

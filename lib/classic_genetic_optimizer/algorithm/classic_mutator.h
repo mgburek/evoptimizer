@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_INCLUDES_MUTATOR_H
-#define EVOPTIMIZER_INCLUDES_MUTATOR_H
+#ifndef EVOPTIMIZER_ALGORITHM_CLASSIC_MUTATOR_H
+#define EVOPTIMIZER_ALGORITHM_CLASSIC_MUTATOR_H
 
 #include <algorithm>
 
@@ -32,5 +32,6 @@ class Mutator {
     return mutated;
   }
 };
-}  // namespace Evo
-#endif  // EVOPTIMIZER_INCLUDES_MUTATOR_H
+}  // namespace Evo::Classic
+
+#endif  // EVOPTIMIZER_ALGORITHM_CLASSIC_MUTATOR_H

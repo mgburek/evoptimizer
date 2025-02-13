@@ -1,5 +1,5 @@
-#ifndef EVOPTIMIZER_POPULATION_GENERATION_H_
-#define EVOPTIMIZER_POPULATION_GENERATION_H_
+#ifndef EVOPTIMIZER_POPULATION_CLASSIC_GENERATION_H
+#define EVOPTIMIZER_POPULATION_CLASSIC_GENERATION_H
 
 #include <algorithm>
 #include <array>
@@ -32,4 +32,4 @@ std::string toString(
 }
 }  // namespace Evo::Classic
 
-#endif
+#endif  // EVOPTIMIZER_POPULATION_CLASSIC_GENERATION_H
