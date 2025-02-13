@@ -5,7 +5,7 @@
 
 #include "classic_mutator.h"
 
-namespace Evo {
+namespace Evo::Classic {
 /**
  * Mutates at most one bit of each individual according to mutation chance
  */

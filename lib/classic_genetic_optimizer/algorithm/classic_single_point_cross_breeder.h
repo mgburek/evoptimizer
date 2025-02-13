@@ -7,7 +7,7 @@
 
 #include "classic_cross_breeder.h"
 
-namespace Evo {
+namespace Evo::Classic {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class SinglePointCrossBreeder
     : public CrossBreeder<I, R, genes_num, population_size> {

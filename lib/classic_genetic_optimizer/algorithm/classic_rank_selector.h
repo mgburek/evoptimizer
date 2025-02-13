@@ -9,7 +9,7 @@
 
 #include "classic_selector.h"
 
-namespace Evo {
+namespace Evo::Classic {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class RankSelector : public Selector<I, R, genes_num, population_size> {
  public:

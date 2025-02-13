@@ -11,7 +11,7 @@
 #include "classic_mutator.h"
 #include "classic_selector.h"
 
-namespace Evo {
+namespace Evo::Classic {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class Evoptimizer : public Optimizer<R, genes_num> {
   FitnessEvaluator<I, R, genes_num, population_size> _evaluator;

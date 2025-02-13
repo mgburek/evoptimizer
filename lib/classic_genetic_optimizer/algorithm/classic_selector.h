@@ -7,7 +7,7 @@
 
 #include "classic_generation.h"
 
-namespace Evo {
+namespace Evo::Classic {
 template <typename I, typename R, size_t genes_num, size_t population_size>
 class Selector {
  public:
