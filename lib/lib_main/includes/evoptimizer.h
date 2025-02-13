@@ -59,23 +59,32 @@ class Evoptimizer {
       return (now - start) > timeout;
     };
 
-    while (!is_timeout()) {
-      auto fitness = _evaluator(gen0);
-      if (is_timeout())
-        break;
-      auto selected = (*_selector)(gen0, fitness);
-      if (is_timeout())
-        break;
-      auto crossed = (*_cross_breeder)(selected);
-      if (is_timeout())
-        break;
-      gen0 = (*_mutator)(crossed);
-    }
+    auto best = gen0[0];
+    auto best_value = _evaluator.evaluate(best);
 
-    auto final_fitness = _evaluator(gen0);
-    auto min_it = std::min_element(final_fitness.begin(), final_fitness.end());
-    auto min_idx = std::distance(final_fitness.begin(), min_it);
-    return toReal(gen0[min_idx]);
+    int g = 0;
+    while (!is_timeout()) {
+      g++;
+      auto fitness = _evaluator(gen0);
+      if (!is_timeout())
+        gen0 = (*_selector)(gen0, fitness);
+      if (!is_timeout())
+        gen0 = (*_cross_breeder)(gen0);
+      if (!is_timeout())
+        gen0 = (*_mutator)(gen0);
+
+      auto final_fitness = _evaluator(gen0);
+      auto min_it =
+          std::min_element(final_fitness.begin(), final_fitness.end());
+      auto min_idx = std::distance(final_fitness.begin(), min_it);
+      if (*min_it < best_value) {
+        best = gen0[min_idx];
+        best_value = *min_it;
+      }
+    }
+    std::cout << "Generatios prcoessed: " << g << "\n";
+
+    return toReal(best);
   }
 };
 }  // namespace Evo
