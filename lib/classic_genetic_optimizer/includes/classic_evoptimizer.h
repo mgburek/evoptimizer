@@ -6,10 +6,10 @@
 
 #include <optimizer.h>
 
-#include "cross_breeder.h"
-#include "fitness_evaluator.h"
-#include "mutator.h"
-#include "selector.h"
+#include "classic_cross_breeder.h"
+#include "classic_fitness_evaluator.h"
+#include "classic_mutator.h"
+#include "classic_selector.h"
 
 namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>

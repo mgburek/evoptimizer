@@ -44,13 +44,14 @@ int main() {
 
   auto start = std::chrono::steady_clock::now();
 
-  auto evoptimizer = Evo::Evoptimizer<R, gnum, psize>(
-      fit_hypersphercial, new Evo::RankSelector<R, gnum, psize>(),
-      new Evo::SinglePointMeanCrossBreeder<R, gnum, psize>(0.5),
-      new Evo::SingleGeneAdditiveMutator<R, gnum, psize>(0.5, 0.5));
+  std::unique_ptr<Evo::Optimizer<R, gnum>> evoptimizer =
+      std::make_unique<Evo::Evoptimizer<R, gnum, psize>>(
+          fit_hypersphercial, new Evo::RankSelector<R, gnum, psize>(),
+          new Evo::SinglePointMeanCrossBreeder<R, gnum, psize>(0.5),
+          new Evo::SingleGeneAdditiveMutator<R, gnum, psize>(0.5, 0.5));
 
-  auto result = evoptimizer(std::chrono::milliseconds(20));
-  // auto result = evoptimizer(generations_num);
+  auto result = (*evoptimizer)(std::chrono::milliseconds(20));
+  // auto result = (*evoptimizer)(generations_num);
 
   std::cout << fit_hypersphercial(result) << std::endl;
   std::cout << Evo::toString(result) << std::endl;

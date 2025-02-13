@@ -3,8 +3,8 @@
 
 #include <functional>
 
-#include "individual.h"
-#include "generation.h"
+#include "classic_individual.h"
+#include "classic_generation.h"
 
 namespace Evo
 {

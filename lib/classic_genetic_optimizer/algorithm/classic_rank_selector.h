@@ -7,7 +7,7 @@
 
 #include <generators.h>
 
-#include "selector.h"
+#include "classic_selector.h"
 
 namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>

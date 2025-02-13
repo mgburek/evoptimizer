@@ -3,11 +3,11 @@
 #include <iostream>
 #include <locale>
 
-#include <evoptimizer.h>
+#include <classic_evoptimizer.h>
 #include <global_engine.h>
-#include <rank_selector.h>
-#include <single_bit_mutator.h>
-#include <single_point_cross_breeder.h>
+#include <classic_rank_selector.h>
+#include <classic_single_bit_mutator.h>
+#include <classic_single_point_cross_breeder.h>
 
 #define PI 3.1415926535
 
@@ -45,13 +45,14 @@ int main() {
 
   auto start = std::chrono::steady_clock::now();
 
-  auto evoptimizer = Evo::Evoptimizer<I, R, gnum, psize>(
-      fit_hypersphercial, new Evo::RankSelector<I, R, gnum, psize>(),
-      new Evo::SinglePointCrossBreeder<I, R, gnum, psize>(0.5),
-      new Evo::SingleBitMutator<I, R, gnum, psize>(0.5));
+  std::unique_ptr<Evo::Optimizer<R, gnum>> evoptimizer =
+      std::make_unique<Evo::Evoptimizer<I, R, gnum, psize>>(
+          fit_hypersphercial, new Evo::RankSelector<I, R, gnum, psize>(),
+          new Evo::SinglePointCrossBreeder<I, R, gnum, psize>(0.5),
+          new Evo::SingleBitMutator<I, R, gnum, psize>(0.5));
 
-  auto result = evoptimizer(std::chrono::milliseconds(20));
-  // auto result = evoptimizer(generations_num);
+  auto result = (*evoptimizer)(std::chrono::milliseconds(20));
+  // auto result = (*evoptimizer)(generations_num);
 
   std::cout << fit_hypersphercial(result) << std::endl;
 

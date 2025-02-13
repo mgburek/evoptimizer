@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-#include "mutator.h"
+#include "classic_mutator.h"
 
 namespace Evo {
 /**

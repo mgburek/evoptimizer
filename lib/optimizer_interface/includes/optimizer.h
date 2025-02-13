@@ -5,6 +5,8 @@ namespace Evo {
 template <typename R, size_t arg_num>
 class Optimizer {
  public:
+  virtual ~Optimizer() = default;
+
   virtual std::array<R, arg_num> operator()(
       const size_t generations_num) const = 0;
 

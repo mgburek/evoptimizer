@@ -3,8 +3,9 @@
 
 #include <algorithm>
 
-#include <generation.h>
 #include <generators.h>
+
+#include "classic_generation.h"
 
 namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>

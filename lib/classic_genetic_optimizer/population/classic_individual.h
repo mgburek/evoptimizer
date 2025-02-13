@@ -7,7 +7,7 @@
 #include <sstream>
 #include <string>
 
-#include "gene.h"
+#include "classic_gene.h"
 
 namespace Evo
 {

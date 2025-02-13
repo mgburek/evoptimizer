@@ -7,7 +7,7 @@
 #include <sstream>
 #include <string>
 
-#include "individual.h"
+#include "classic_individual.h"
 
 namespace Evo
 {

@@ -3,10 +3,9 @@
 
 #include <algorithm>
 
-#include <generation.h>
 #include <generators.h>
 
-#include "cross_breeder.h"
+#include "classic_cross_breeder.h"
 
 namespace Evo {
 template <typename I, typename R, size_t genes_num, size_t population_size>
