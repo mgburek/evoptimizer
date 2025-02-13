@@ -10,13 +10,20 @@
 #include <generators.h>
 
 namespace Evo {
+
+template <typename R>
+inline static R max = static_cast<R>(5.0);
+
+template <typename R>
+inline static R min = static_cast<R>(-5.0);
+
 template <typename R, size_t genes_num>
 using RealIndividual = std::array<R, genes_num>;
 
 template <typename R, size_t genes_num>
 RealIndividual<R, genes_num> createRandomIndividual() {
   RealIndividual<R, genes_num> ind;
-  auto generator = Random::RealGenerator(-5.0, 5.0);
+  auto generator = Random::RealGenerator(min<R>, max<R>);
   std::generate(ind.begin(), ind.end(), [&generator]() { return generator(); });
   return ind;
 }

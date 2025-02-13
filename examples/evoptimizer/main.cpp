@@ -17,8 +17,8 @@ int main() {
   constexpr size_t gnum = 20;
   constexpr size_t psize = 50;
 
-  // Evo::R::max = 40.0;
-  // Evo::R::min = -40.0;
+  Evo::max<R> = 40.0;
+  Evo::min<R> = -40.0;
 
   auto fit_hypersphercial = [](const std::array<R, gnum>& x) {
     R result = 0.0;
@@ -46,8 +46,8 @@ int main() {
 
   auto evoptimizer = Evo::Evoptimizer<R, gnum, psize>(
       fit_hypersphercial, new Evo::RankSelector<R, gnum, psize>(),
-      new Evo::SinglePointMeanCrossBreeder<R, gnum, psize>(0.9),
-      new Evo::SingleGeneAdditiveMutator<R, gnum, psize>(0.8));
+      new Evo::SinglePointMeanCrossBreeder<R, gnum, psize>(0.5),
+      new Evo::SingleGeneAdditiveMutator<R, gnum, psize>(0.5, 0.5));
 
   auto result = evoptimizer(std::chrono::milliseconds(20));
   // auto result = evoptimizer(generations_num);

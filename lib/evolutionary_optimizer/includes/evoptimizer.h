@@ -65,15 +65,15 @@ class Evoptimizer {
     while (!is_timeout()) {
       g++;
       auto fitness = _evaluator(gen0);
-      if (is_timeout())
-        break;
-      auto selected = (*_selector)(gen0, fitness);
-      if (is_timeout())
-        break;
-      auto crossed = (*_cross_breeder)(selected);
-      if (is_timeout())
-        break;
-      gen0 = (*_mutator)(crossed);
+
+      if (!is_timeout())
+        gen0 = (*_selector)(gen0, fitness);
+
+      if (!is_timeout())
+        gen0 = (*_cross_breeder)(gen0);
+
+      if (!is_timeout())
+        gen0 = (*_mutator)(gen0);
 
       auto final_fitness = _evaluator(gen0);
       auto min_it =
@@ -83,10 +83,8 @@ class Evoptimizer {
         best = gen0[min_idx];
         best_value = *min_it;
       }
-      std::cout << best_value << "\n";
     }
     std::cout << "Generatios prcoessed: " << g << "\n";
-
     return best;
   }
 };

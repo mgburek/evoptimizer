@@ -26,17 +26,15 @@ class SinglePointMeanCrossBreeder
   static void crossAtPoint(RealIndividual<R, genes_num>& ind1,
                            RealIndividual<R, genes_num>& ind2,
                            size_t cross_point) {
-    size_t division_gene = cross_point;
+    std::swap_ranges(ind1.rbegin(), ind1.rend() - cross_point, ind2.rbegin());
 
-    std::swap_ranges(ind1.rbegin(), ind1.rend() - division_gene, ind2.rbegin());
-
-    auto division_gene_a = ind1.at(division_gene);
-    auto division_gene_b = ind2.at(division_gene);
+    auto division_gene_a = ind1.at(cross_point);
+    auto division_gene_b = ind2.at(cross_point);
 
     R mean = (division_gene_a + division_gene_b) * 0.5;
 
-    ind1.at(division_gene) = mean;
-    ind2.at(division_gene) = mean;
+    ind1.at(cross_point) = mean;
+    ind2.at(cross_point) = mean;
   }
 };
 
@@ -45,8 +43,8 @@ class SinglePointMeanCrossBreeder
 template <typename R, size_t genes_num, size_t population_size>
 Random::IntGenerator<size_t>
     SinglePointMeanCrossBreeder<R, genes_num, population_size>::cross_point_gen(
-        1,
-        genes_num - 2);
+        0,
+        genes_num - 1);
 
 }  // namespace Evo
 #endif

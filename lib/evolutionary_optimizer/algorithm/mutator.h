@@ -22,9 +22,8 @@ class Mutator {
     RealGeneration<R, genes_num, population_size> mutated(generation);
 
     auto mut = [this](RealIndividual<R, genes_num>& individual) {
-      if (Random::zero_one() < this->_mutation_chance) {
+      if (Random::zero_one() < this->_mutation_chance)
         mutate(individual);
-      }
     };
 
     std::for_each(mutated.begin(), mutated.end(), mut);

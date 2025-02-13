@@ -23,8 +23,8 @@ int main() {
   constexpr size_t gnum = 20;
   constexpr size_t psize = 50;
 
-  // Evo::R::max = 40.0;
-  // Evo::R::min = -40.0;
+  Evo::Gene<I,R>::max = 40.0;
+  Evo::Gene<I,R>::min = -40.0;
 
   auto fit_hypersphercial = [](const std::array<R, gnum>& x) {
     R result = 0.0;

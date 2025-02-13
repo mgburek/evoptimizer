@@ -25,17 +25,30 @@ class RankSelector : public Selector<R, genes_num, population_size> {
       return fitness[a] > fitness[b];
     });
 
-    // sum of squares of ranks: 1^2 + 2^2 + ... + N^2
+    // // sum of squares of ranks: 1^2 + 2^2 + ... + N^2
+    // constexpr double ranks_sum =
+    //     (population_size * (population_size + 1) * (2 * population_size + 1)) /
+    //     6.0;
+
+    // std::array<double, population_size> odds;
+    // double rank = 0.0;
+    // double prev_odd = 0.0;
+    // std::generate(odds.begin(), odds.end(), [&rank, &prev_odd, ranks_sum]() {
+    //   rank += 1.0;
+    //   prev_odd = prev_odd + ((rank * rank) / ranks_sum);
+    //   return prev_odd;
+    // });
+
+    // (N * (N+1)) / 2
     constexpr double ranks_sum =
-        (population_size * (population_size + 1) * (2 * population_size + 1)) /
-        6.0;
+        static_cast<double>(population_size * (population_size + 1)) * 0.5;
 
     std::array<double, population_size> odds;
     double rank = 0.0;
     double prev_odd = 0.0;
-    std::generate(odds.begin(), odds.end(), [&rank, &prev_odd, ranks_sum]() {
+    std::generate(odds.begin(), odds.end(), [&rank, &prev_odd]() {
       rank += 1.0;
-      prev_odd = prev_odd + ((rank * rank) / ranks_sum);
+      prev_odd = prev_odd + (rank / ranks_sum);
       return prev_odd;
     });
 

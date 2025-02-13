@@ -26,8 +26,8 @@ class CrossBreeder {
         generation);
     std::shuffle(crossed_generation.begin(), crossed_generation.end(),
                  Random::engine);
-
-    for (size_t i = 0; i < crossed_generation.size(); i += 2) {
+    constexpr size_t N = population_size - population_size % 2;
+    for (size_t i = 0; i < N; i += 2) {
       if (Random::zero_one() < _crossing_chance)
         cross(crossed_generation.at(i), crossed_generation.at(i + 1));
     }
