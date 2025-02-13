@@ -1,18 +1,13 @@
+#include <chrono>
+#include <fstream>
 #include <iostream>
 #include <locale>
 
 #include <evoptimizer.h>
-#include <fitness_evaluator.h>
-#include <gene.h>
-#include <generation.h>
 #include <global_engine.h>
-#include <individual.h>
 #include <rank_selector.h>
 #include <single_bit_mutator.h>
 #include <single_point_cross_breeder.h>
-
-#include <chrono>
-#include <fstream>
 
 #define PI 3.1415926535
 
@@ -23,8 +18,8 @@ int main() {
   constexpr size_t gnum = 20;
   constexpr size_t psize = 50;
 
-  Evo::Gene<I,R>::max = 40.0;
-  Evo::Gene<I,R>::min = -40.0;
+  Evo::Gene<I, R>::max = 40.0;
+  Evo::Gene<I, R>::min = -40.0;
 
   auto fit_hypersphercial = [](const std::array<R, gnum>& x) {
     R result = 0.0;

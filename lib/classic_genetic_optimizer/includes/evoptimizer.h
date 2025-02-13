@@ -4,8 +4,7 @@
 #include <chrono>
 #include <memory>
 
-#include <fitness_evaluator.h>
-
+#include "fitness_evaluator.h"
 #include "cross_breeder.h"
 #include "mutator.h"
 #include "selector.h"
