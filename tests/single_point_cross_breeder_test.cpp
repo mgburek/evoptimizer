@@ -1,14 +1,14 @@
 #include <gtest/gtest.h>
 
-#include <single_point_cross_breeder.h>
+#include <classic_single_point_cross_breeder.h>
 
 TEST(SinglePointCrossBreeder, Test1)
 {
-    const auto a = Evo::Gene<uint8_t, float>(0xFF);
-    const auto b = Evo::Gene<uint8_t, float>(0x00);
-    Evo::Individual<uint8_t, float, 1> ind1 = {a};
-    Evo::Individual<uint8_t, float, 1> ind2 = {b};
-    Evo::SinglePointCrossBreeder<uint8_t, float, 1, 2>::crossAtPoint(ind1, ind2, 4);
+    const auto a = Evo::Classic::Gene<uint8_t, float>(0xFF);
+    const auto b = Evo::Classic::Gene<uint8_t, float>(0x00);
+    Evo::Classic::Individual<uint8_t, float, 1> ind1 = {a};
+    Evo::Classic::Individual<uint8_t, float, 1> ind2 = {b};
+    Evo::Classic::SinglePointCrossBreeder<uint8_t, float, 1, 2>::crossAtPoint(ind1, ind2, 4);
 
     EXPECT_EQ(ind1.at(0).get(), 0xF0);
     EXPECT_EQ(ind2.at(0).get(), 0x0F);
@@ -16,11 +16,11 @@ TEST(SinglePointCrossBreeder, Test1)
 
 TEST(SinglePointCrossBreeder, Test2)
 {
-    const auto a = Evo::Gene<uint16_t, float>(0xFFFF);
-    const auto b = Evo::Gene<uint16_t, float>(0x0000);
-    Evo::Individual<uint16_t, float, 3> ind1 = {a, a, a};
-    Evo::Individual<uint16_t, float, 3> ind2 = {b, b, b};
-    Evo::SinglePointCrossBreeder<uint16_t, float, 3, 2>::crossAtPoint(ind1, ind2, 24);
+    const auto a = Evo::Classic::Gene<uint16_t, float>(0xFFFF);
+    const auto b = Evo::Classic::Gene<uint16_t, float>(0x0000);
+    Evo::Classic::Individual<uint16_t, float, 3> ind1 = {a, a, a};
+    Evo::Classic::Individual<uint16_t, float, 3> ind2 = {b, b, b};
+    Evo::Classic::SinglePointCrossBreeder<uint16_t, float, 3, 2>::crossAtPoint(ind1, ind2, 24);
 
     EXPECT_EQ(ind1.at(0).get(), 0xFFFF);
     EXPECT_EQ(ind1.at(1).get(), 0xFF00);
@@ -32,12 +32,12 @@ TEST(SinglePointCrossBreeder, Test2)
 
 TEST(SinglePointCrossBreeder, Test3)
 {
-    const auto a = Evo::Gene<uint8_t, float>(0xFF);
-    const auto b = Evo::Gene<uint8_t, float>(0x00);
+    const auto a = Evo::Classic::Gene<uint8_t, float>(0xFF);
+    const auto b = Evo::Classic::Gene<uint8_t, float>(0x00);
 
-    Evo::Individual<uint8_t, float, 2> ind1 = {a, a};
-    Evo::Individual<uint8_t, float, 2> ind2 = {b, b};
-    Evo::SinglePointCrossBreeder<uint8_t, float, 2, 2>::crossAtPoint(ind1, ind2, 5);
+    Evo::Classic::Individual<uint8_t, float, 2> ind1 = {a, a};
+    Evo::Classic::Individual<uint8_t, float, 2> ind2 = {b, b};
+    Evo::Classic::SinglePointCrossBreeder<uint8_t, float, 2, 2>::crossAtPoint(ind1, ind2, 5);
 
     EXPECT_EQ(ind1.at(0).get(), 0xF8);
     EXPECT_EQ(ind1.at(1).get(), 0x00);
@@ -47,11 +47,11 @@ TEST(SinglePointCrossBreeder, Test3)
 
 TEST(SinglePointCrossBreeder, Test4)
 {
-    const auto a = Evo::Gene<uint32_t, float>(0xFFFF'FFFF);
-    const auto b = Evo::Gene<uint32_t, float>(0x0000'0000);
-    Evo::Individual<uint32_t, float, 2> ind1 = {a, a};
-    Evo::Individual<uint32_t, float, 2> ind2 = {b, b};
-    Evo::SinglePointCrossBreeder<uint32_t, float, 2, 2>::crossAtPoint(ind1, ind2, 60);
+    const auto a = Evo::Classic::Gene<uint32_t, float>(0xFFFF'FFFF);
+    const auto b = Evo::Classic::Gene<uint32_t, float>(0x0000'0000);
+    Evo::Classic::Individual<uint32_t, float, 2> ind1 = {a, a};
+    Evo::Classic::Individual<uint32_t, float, 2> ind2 = {b, b};
+    Evo::Classic::SinglePointCrossBreeder<uint32_t, float, 2, 2>::crossAtPoint(ind1, ind2, 60);
 
     EXPECT_EQ(ind1.at(0).get(), 0xFFFF'FFFF);
     EXPECT_EQ(ind1.at(1).get(), 0xFFFF'FFF0);
@@ -61,11 +61,11 @@ TEST(SinglePointCrossBreeder, Test4)
 
 TEST(SinglePointCrossBreeder, Test5)
 {
-    const auto a = Evo::Gene<uint16_t, float>(0xFFFF);
-    const auto b = Evo::Gene<uint16_t, float>(0x0000);
-    Evo::Individual<uint16_t, float, 5> ind1 = {a, a, a, a, a};
-    Evo::Individual<uint16_t, float, 5> ind2 = {b, b, b, b, b};
-    Evo::SinglePointCrossBreeder<uint16_t, float, 5, 2>::crossAtPoint(ind1, ind2, 43);
+    const auto a = Evo::Classic::Gene<uint16_t, float>(0xFFFF);
+    const auto b = Evo::Classic::Gene<uint16_t, float>(0x0000);
+    Evo::Classic::Individual<uint16_t, float, 5> ind1 = {a, a, a, a, a};
+    Evo::Classic::Individual<uint16_t, float, 5> ind2 = {b, b, b, b, b};
+    Evo::Classic::SinglePointCrossBreeder<uint16_t, float, 5, 2>::crossAtPoint(ind1, ind2, 43);
 
     EXPECT_EQ(ind1.at(0).get(), 0xFFFF);
     EXPECT_EQ(ind1.at(1).get(), 0xFFFF);
@@ -82,12 +82,12 @@ TEST(SinglePointCrossBreeder, Test5)
 
 TEST(SinglePointCrossBreeder, Test6)
 {
-    const auto a = Evo::Gene<uint8_t, float>(0xFF);
-    const auto b = Evo::Gene<uint8_t, float>(0x00);
+    const auto a = Evo::Classic::Gene<uint8_t, float>(0xFF);
+    const auto b = Evo::Classic::Gene<uint8_t, float>(0x00);
 
-    Evo::Individual<uint8_t, float, 2> ind1 = {a, a};
-    Evo::Individual<uint8_t, float, 2> ind2 = {b, b};
-    Evo::SinglePointCrossBreeder<uint8_t, float, 2, 2>::crossAtPoint(ind1, ind2, 0);
+    Evo::Classic::Individual<uint8_t, float, 2> ind1 = {a, a};
+    Evo::Classic::Individual<uint8_t, float, 2> ind2 = {b, b};
+    Evo::Classic::SinglePointCrossBreeder<uint8_t, float, 2, 2>::crossAtPoint(ind1, ind2, 0);
 
     EXPECT_EQ(ind1.at(0).get(), 0x00);
     EXPECT_EQ(ind1.at(1).get(), 0x00);
@@ -97,12 +97,12 @@ TEST(SinglePointCrossBreeder, Test6)
 
 TEST(SinglePointCrossBreeder, Test7)
 {
-    const auto a = Evo::Gene<uint8_t, float>(0xFF);
-    const auto b = Evo::Gene<uint8_t, float>(0x00);
+    const auto a = Evo::Classic::Gene<uint8_t, float>(0xFF);
+    const auto b = Evo::Classic::Gene<uint8_t, float>(0x00);
 
-    Evo::Individual<uint8_t, float, 2> ind1 = {a, a};
-    Evo::Individual<uint8_t, float, 2> ind2 = {b, b};
-    Evo::SinglePointCrossBreeder<uint8_t, float, 2, 2>::crossAtPoint(ind1, ind2, 15);
+    Evo::Classic::Individual<uint8_t, float, 2> ind1 = {a, a};
+    Evo::Classic::Individual<uint8_t, float, 2> ind2 = {b, b};
+    Evo::Classic::SinglePointCrossBreeder<uint8_t, float, 2, 2>::crossAtPoint(ind1, ind2, 15);
 
     EXPECT_EQ(ind1.at(0).get(), 0xFF);
     EXPECT_EQ(ind1.at(1).get(), 0xFE);

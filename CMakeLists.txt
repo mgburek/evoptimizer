@@ -17,13 +17,10 @@ set(MESSAGE_PREFIX "${PROJECT_NAME}: ")
 
 option(COMPILE_EXAMPLES OFF)
 
-if(BUILD_TESTING)
-    enable_testing()
-endif()
-
 add_subdirectory("lib")
 
 if(BUILD_TESTING)
+    enable_testing()
     message(${MESSAGE_PREFIX} "Tests enabled")
     add_subdirectory("tests")
 else()

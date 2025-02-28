@@ -13,12 +13,12 @@ set(
     single_bit_mutator_test
 )
 
+include(GoogleTest)
 foreach(test IN LISTS TESTS)
     message("Test: ${test}")
     add_executable(${test} "${test}.cpp")
-    target_link_libraries(${test} ${LIBRARY_NAME} GTest::gtest_main)
+    target_link_libraries(${test} ${EVOPTIMIZER_CLASSIC_LIB_NAME} GTest::gtest_main)
 
     # automatically detect and add tests found in the target, alternative to add_test
-    include(GoogleTest)
     gtest_discover_tests(${test})
 endforeach(test in TESTS)
