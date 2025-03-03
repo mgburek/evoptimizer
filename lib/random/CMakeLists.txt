@@ -4,7 +4,6 @@ set(
     "includes/generators.h"
 )
 
-add_library(${RANDOM_LIB_NAME} STATIC ${HEADERS})
-set_target_properties(${RANDOM_LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+add_library(${RANDOM_LIB_NAME} INTERFACE)
 
-target_include_directories(${RANDOM_LIB_NAME} PUBLIC "includes")
+target_include_directories(${RANDOM_LIB_NAME} INTERFACE "includes")
