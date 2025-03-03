@@ -26,11 +26,11 @@ int main() {
     return result;
   };
 
-  auto fit_ackley = [](const std::array<R, gnum>& x) {
+  auto fit_ackley = [&gnum](const std::array<R, gnum>& x) {
     constexpr const R a = 20.0;
     constexpr const R b = 0.2;
     const R c = static_cast<R>(2.0 * PI);
-    constexpr const R d = 1.0 / static_cast<R>(gnum);
+    const R d = 1.0 / static_cast<R>(gnum);
 
     R squares_sum = 0.0;
     R cosinuses_sum = 0.0;

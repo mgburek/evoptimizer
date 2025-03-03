@@ -32,7 +32,7 @@ class RankSelector : public Selector<I, R, genes_num, population_size> {
     std::array<double, population_size> odds;
     double rank = 0.0;
     double prev_odd = 0.0;
-    std::generate(odds.begin(), odds.end(), [&rank, &prev_odd]() {
+    std::generate(odds.begin(), odds.end(), [&rank, &prev_odd, &ranks_sum]() {
       rank += 1.0;
       prev_odd = prev_odd + (rank / ranks_sum);
       return prev_odd;

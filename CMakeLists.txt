@@ -13,17 +13,17 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(EVOPTIMIZER_CLASSIC_LIB_NAME "evoptimizer_classic_lib")
 set(EVOPTIMIZER_LIB_NAME "evoptimizer_lib")
 
-
 function(prefixed_message text)
     set(MESSAGE_PREFIX "${PROJECT_NAME}: ")
     message(${MESSAGE_PREFIX} " " ${text})
 endfunction()
 
-option(COMPILE_EXAMPLES OFF)
+option(EVOPTIMIZER_COMPILE_EXAMPLES OFF)
+option(EVOPTIMIZER_BUILD_TESTING OFF)
 
 add_subdirectory("lib")
 
-if(BUILD_TESTING)
+if(EVOPTIMIZER_BUILD_TESTING)
     enable_testing()
     prefixed_message("Tests enabled")
     add_subdirectory("tests")
@@ -31,7 +31,7 @@ else()
     prefixed_message("Tests not enabled")
 endif()
 
-if(COMPILE_EXAMPLES)
+if(EVOPTIMIZER_COMPILE_EXAMPLES)
     prefixed_message("Compiling with example executable")
     add_subdirectory("examples")
 else()
