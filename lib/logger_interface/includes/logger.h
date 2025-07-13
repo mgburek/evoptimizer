@@ -56,7 +56,7 @@ namespace Evo {
 #ifdef LOGGER_ENABLED
 #define LOG_INFO(...) Evo::LoggerInstance::logInfo(__VA_ARGS__);
 #else
-#define LOG_INFO(text) ;
+#define LOG_INFO(...) ;
 #endif
 
 #ifdef LOGGER_ENABLED
