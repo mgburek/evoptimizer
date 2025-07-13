@@ -12,10 +12,10 @@
 namespace Evo {
 
 template <typename R>
-inline static R max = static_cast<R>(5.0);
+inline static R max = static_cast<R>(1.0);
 
 template <typename R>
-inline static R min = static_cast<R>(-5.0);
+inline static R min = static_cast<R>(-1.0);
 
 template <typename R, size_t genes_num>
 using RealIndividual = std::array<R, genes_num>;
