@@ -5,6 +5,7 @@
 #include <memory>
 
 #include <optimizer.h>
+#include <logger.h>
 #include <optimizer_output_saver.h>
 
 #include "cross_breeder.h"
