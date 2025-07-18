@@ -4,8 +4,9 @@
 #include <chrono>
 #include <memory>
 
-#include <optimizer.h>
 #include <logger.h>
+#include <optimizer.h>
+#include <optimizer_output_saver.h>
 
 #include "classic_cross_breeder.h"
 #include "classic_fitness_evaluator.h"
@@ -21,6 +22,9 @@ namespace Evo::Classic {
         _cross_breeder;
         std::unique_ptr<Mutator<I, R, genes_num, population_size> > _mutator;
 
+
+        mutable int32_t _iteration_count = 0;
+
     public:
         Evoptimizer(std::function<R(std::array<R, genes_num>)> fitness_function,
                     Selector<I, R, genes_num, population_size> *selector,
@@ -30,13 +34,11 @@ namespace Evo::Classic {
                   FitnessEvaluator<I, R, genes_num, population_size>(
                       fitness_function)
               },
-              _selector{selector},
-              _cross_breeder{cross_breeder},
-              _mutator{mutator} {
+              _selector{selector}, _cross_breeder{cross_breeder}, _mutator{mutator} {
         }
 
-        std::array<R, genes_num> operator()(
-            const size_t generations_num) const override {
+        std::array<R, genes_num>
+        operator()(const size_t generations_num) const override {
             Generation<I, R, genes_num, population_size> gen0 =
                     createRandom<I, R, genes_num, population_size>();
 
@@ -53,8 +55,8 @@ namespace Evo::Classic {
             return toReal(gen0[min_idx]);
         }
 
-        std::array<R, genes_num> operator()(
-            const std::chrono::milliseconds timeout) const override {
+        std::array<R, genes_num>
+        operator()(const std::chrono::milliseconds timeout) const override {
             Generation<I, R, genes_num, population_size> gen0 =
                     createRandom<I, R, genes_num, population_size>();
 
@@ -68,8 +70,12 @@ namespace Evo::Classic {
             auto best = gen0[0];
             auto best_value = _evaluator.evaluate(best);
 
+            _iteration_count++;
+
             int g = 0;
             while (!is_timeout()) {
+                SAVE_GENERATION("./generations.txt", float, gen0, g, _iteration_count);
+
                 g++;
                 auto fitness = _evaluator(gen0);
                 if (!is_timeout())
@@ -97,4 +103,4 @@ namespace Evo::Classic {
     };
 } // namespace Evo::Classic
 
-#endif  // EVOPTIMIZER_INCLUDES_CLASSIC_EVOPTIMIZER_H
+#endif // EVOPTIMIZER_INCLUDES_CLASSIC_EVOPTIMIZER_H

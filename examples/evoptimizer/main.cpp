@@ -4,6 +4,7 @@
 #include <iostream>
 #include <locale>
 
+#define ENABLE_SAVE_OPTIMIZER_OUTPUT
 #define LOGGER_ENABLED
 #include "mutator_all_genes_additive.h"
 

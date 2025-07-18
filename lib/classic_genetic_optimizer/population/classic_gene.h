@@ -43,6 +43,9 @@ class Gene {
     return min + (static_cast<R>(_value) * UINT_SCALER) * (max - min);
   }
 
+  template <class CastType>
+  explicit operator CastType() const { return static_cast<CastType>(toReal()); }
+
   /**
    * Converts gene to std::string representing it's real value
    */

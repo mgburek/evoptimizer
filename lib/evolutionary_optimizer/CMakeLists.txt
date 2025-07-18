@@ -12,5 +12,6 @@ target_link_libraries(
         INTERFACE
         ${RANDOM_LIB_NAME}
         ${OPTIMIZER_INTERFACE_NAME}
+        ${OPTIMIZER_OUTPUT_SAVER_NAME}
         ${LOGGER_INTERFACE_NAME}
 )

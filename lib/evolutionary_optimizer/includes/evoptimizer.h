@@ -5,7 +5,7 @@
 #include <memory>
 
 #include <optimizer.h>
-#include <logger.h>
+#include <optimizer_output_saver.h>
 
 #include "cross_breeder.h"
 #include "fitness_evaluator.h"
@@ -20,6 +20,8 @@ namespace Evo {
         std::unique_ptr<CrossBreeder<R, genes_num, population_size> > _cross_breeder;
         std::unique_ptr<Mutator<R, genes_num, population_size> > _mutator;
 
+        mutable int32_t _iteration_count = 0;
+
     public:
         Evoptimizer(std::function<R(std::array<R, genes_num>)> fitness_function,
                     Selector<R, genes_num, population_size> *selector,
@@ -29,13 +31,11 @@ namespace Evo {
                   FitnessEvaluator<R, genes_num, population_size>(
                       fitness_function)
               },
-              _selector{selector},
-              _cross_breeder{cross_breeder},
-              _mutator{mutator} {
+              _selector{selector}, _cross_breeder{cross_breeder}, _mutator{mutator} {
         }
 
-        std::array<R, genes_num> operator()(
-            const size_t generations_num) const override {
+        std::array<R, genes_num>
+        operator()(const size_t generations_num) const override {
             RealGeneration<R, genes_num, population_size> gen0 =
                     createRandomGeneration<R, genes_num, population_size>();
 
@@ -52,8 +52,8 @@ namespace Evo {
             return gen0[min_idx];
         }
 
-        std::array<R, genes_num> operator()(
-            const std::chrono::milliseconds timeout) const override {
+        std::array<R, genes_num>
+        operator()(const std::chrono::milliseconds timeout) const override {
             RealGeneration<R, genes_num, population_size> gen0 =
                     createRandomGeneration<R, genes_num, population_size>();
 
@@ -67,8 +67,12 @@ namespace Evo {
             auto best = gen0[0];
             auto best_value = _evaluator.evaluate(best);
 
+            _iteration_count++;
+
             int g = 0;
             while (!is_timeout()) {
+                SAVE_GENERATION("./generations.txt", float, gen0, g, _iteration_count);
+
                 g++;
                 auto fitness = _evaluator(gen0);
 
@@ -92,11 +96,11 @@ namespace Evo {
                 LOG_INFO(best_value);
             }
             LOG_INFO(toString(best));
-            LOG_INFO("Generatios prcoessed: " + std::to_string(g));
+            LOG_INFO("Generations processed: " + std::to_string(g));
 
-            return best;
+            return std::move(best);
         }
     };
 } // namespace Evo
 
-#endif  // EVOPTIMIZER_INCLUDES_EVOPTIMIZER_H
+#endif // EVOPTIMIZER_INCLUDES_EVOPTIMIZER_H
